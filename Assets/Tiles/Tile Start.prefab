@@ -8,9 +8,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 443339298949571541, guid: 6c0094dc0b8b61f43a522ccc567b41b9, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2c0e220d5139d3a4fb8705884f393843, type: 2}
     - target: {fileID: 1665440714269374646, guid: 6c0094dc0b8b61f43a522ccc567b41b9, type: 3}
       propertyPath: m_Name
-      value: Tile
+      value: Tile Start
       objectReference: {fileID: 0}
     - target: {fileID: 4937338819369870592, guid: 6c0094dc0b8b61f43a522ccc567b41b9, type: 3}
       propertyPath: m_LocalPosition.x

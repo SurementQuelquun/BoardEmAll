@@ -148,9 +148,129 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34c6ccab38fe98b4ebf48f714b481c37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GridManager
-  _width: 16
-  _height: 9
-  _tilePrefab: {fileID: -508867294607255413, guid: 6c0094dc0b8b61f43a522ccc567b41b9, type: 3}
+  _width: 23
+  _height: 17
+  _defaultTilePrefab: {fileID: 1276852487798360467, guid: 79da6e13baf35fa4492b1e94df68d11f, type: 3}
+  _tilePrefabs:
+  - Prefab: {fileID: 6257504400006356944, guid: e844285c0a70b444eb566720981d9782, type: 3}
+    Positions:
+    - {x: 21, y: 3}
+  - Prefab: {fileID: 6277900416738046574, guid: b370a9106e6c93945aba0ff42a0dce8b, type: 3}
+    Positions:
+    - {x: 21, y: 3}
+    - {x: 20, y: 3}
+    - {x: 19, y: 3}
+    - {x: 18, y: 3}
+    - {x: 17, y: 3}
+    - {x: 16, y: 3}
+    - {x: 15, y: 3}
+    - {x: 14, y: 3}
+    - {x: 13, y: 3}
+    - {x: 12, y: 4}
+    - {x: 12, y: 5}
+    - {x: 12, y: 6}
+    - {x: 12, y: 7}
+    - {x: 12, y: 8}
+    - {x: 12, y: 9}
+    - {x: 12, y: 10}
+    - {x: 12, y: 12}
+    - {x: 11, y: 13}
+    - {x: 10, y: 13}
+    - {x: 9, y: 13}
+    - {x: 8, y: 13}
+    - {x: 7, y: 13}
+    - {x: 6, y: 13}
+    - {x: 5, y: 13}
+    - {x: 4, y: 13}
+    - {x: 3, y: 13}
+    - {x: 2, y: 13}
+    - {x: 12, y: 11}
+  - Prefab: {fileID: 7849096244805036037, guid: 1a5aa57b30885dc4c95825da860e025b, type: 3}
+    Positions:
+    - {x: 12, y: 3}
+    - {x: 12, y: 13}
+  - Prefab: {fileID: 2709388716795126830, guid: 689c8789fac061a418b4fcf7386d2cf0, type: 3}
+    Positions:
+    - {x: 0, y: 0}
+    - {x: 0, y: 1}
+    - {x: 0, y: 2}
+    - {x: 0, y: 3}
+    - {x: 0, y: 4}
+    - {x: 0, y: 5}
+    - {x: 0, y: 6}
+    - {x: 0, y: 7}
+    - {x: 0, y: 8}
+    - {x: 0, y: 9}
+    - {x: 0, y: 10}
+    - {x: 0, y: 11}
+    - {x: 0, y: 12}
+    - {x: 0, y: 13}
+    - {x: 0, y: 14}
+    - {x: 1, y: 0}
+    - {x: 2, y: 0}
+    - {x: 3, y: 0}
+    - {x: 4, y: 0}
+    - {x: 5, y: 0}
+    - {x: 6, y: 0}
+    - {x: 7, y: 0}
+    - {x: 8, y: 0}
+    - {x: 9, y: 0}
+    - {x: 10, y: 0}
+    - {x: 11, y: 0}
+    - {x: 12, y: 0}
+    - {x: 13, y: 0}
+    - {x: 14, y: 0}
+    - {x: 15, y: 0}
+    - {x: 16, y: 0}
+    - {x: 17, y: 0}
+    - {x: 18, y: 0}
+    - {x: 19, y: 0}
+    - {x: 20, y: 0}
+    - {x: 22, y: 1}
+    - {x: 22, y: 2}
+    - {x: 22, y: 3}
+    - {x: 22, y: 4}
+    - {x: 22, y: 5}
+    - {x: 22, y: 6}
+    - {x: 22, y: 7}
+    - {x: 22, y: 8}
+    - {x: 22, y: 9}
+    - {x: 22, y: 10}
+    - {x: 22, y: 11}
+    - {x: 22, y: 12}
+    - {x: 22, y: 13}
+    - {x: 1, y: 16}
+    - {x: 2, y: 16}
+    - {x: 3, y: 16}
+    - {x: 4, y: 16}
+    - {x: 5, y: 16}
+    - {x: 6, y: 16}
+    - {x: 7, y: 16}
+    - {x: 8, y: 16}
+    - {x: 9, y: 16}
+    - {x: 10, y: 16}
+    - {x: 11, y: 16}
+    - {x: 12, y: 16}
+    - {x: 13, y: 16}
+    - {x: 14, y: 16}
+    - {x: 15, y: 16}
+    - {x: 16, y: 16}
+    - {x: 17, y: 16}
+    - {x: 18, y: 16}
+    - {x: 19, y: 16}
+    - {x: 20, y: 16}
+    - {x: 0, y: 16}
+    - {x: 22, y: 0}
+    - {x: 22, y: 16}
+    - {x: 22, y: 15}
+    - {x: 22, y: 14}
+    - {x: 0, y: 15}
+    - {x: 21, y: 0}
+    - {x: 21, y: 16}
+  - Prefab: {fileID: 7093907283427388975, guid: 6c53106d0167e8e41a0548002581a1f5, type: 3}
+    Positions:
+    - {x: 1, y: 13}
+  _gridParentName: Tiles
 --- !u!4 &212489760
 Transform:
   m_ObjectHideFlags: 0
@@ -348,8 +468,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.27995235, y: 0.020252073, z: -0.0059102383, w: -0.95978206}
-  m_LocalPosition: {x: -0.036110707, y: 2.7935534, z: -3.0327425}
+  m_LocalRotation: {x: -0.5537009, y: -0.004082859, z: 0.0027141268, w: -0.8327012}
+  m_LocalPosition: {x: 10.003884, y: 16.797913, z: 0.5744686}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
