@@ -206,3 +206,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 834802922f6b27949b996d86a925742b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tile
+  _isConstructible: 0

@@ -1,8 +1,10 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    // ce programe fait rien mais sans lui unity n'arrive pas a compiler le projet
+    [SerializeField] private bool _isConstructible = true;
+    [SerializeField] private bool _isNode = true;
 
+    // Exposed read-only property used by placement logic.
+    public bool IsConstructible => _isConstructible;
 }

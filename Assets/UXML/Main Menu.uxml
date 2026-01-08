@@ -1,0 +1,9 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="VisualElement" style="flex-grow: 1; justify-content: center;">
+        <ui:VisualElement style="flex-grow: 0; align-self: center; justify-content: center; align-items: auto; flex-direction: column; align-content: auto; font-size: 14px;">
+            <ui:Label text="Main Menu" name="MainMenuText" style="align-items: auto; align-self: center; font-size: 30px;" />
+            <ui:Button text="PLAY" name="PlayButton" style="align-self: center; align-items: auto;" />
+            <ui:Button text="QUIT" name="QuitButton" style="align-items: auto; align-self: center;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
