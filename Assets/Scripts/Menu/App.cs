@@ -31,8 +31,8 @@ public class App : MonoBehaviour
 
     IEnumerator Start()
     {
-        this.quitAction = InputSystem.actions.FindAction("Quit");
-        this.quitAction.Enable();
+        //this.quitAction = InputSystem.actions.FindAction("Quit");
+        //this.quitAction.Enable();
         yield return StartCoroutine(WaitAndPrint("OutGame"));
     }
     IEnumerator WaitAndPrint(string SceneName)
