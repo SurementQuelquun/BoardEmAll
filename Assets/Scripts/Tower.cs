@@ -18,9 +18,6 @@ public class Tower : MonoBehaviour
     // Prevent multiple placements in the same frame
     private static int s_LastPlacementFrame = -1;
 
-    // Whether the ghost currently sits over a valid raycast hit (inside play area)
-    private static bool s_GhostHasValidPosition = false;
-
     private void Start()
     {
         CreateGhostObjectIfNeeded();
@@ -61,7 +58,6 @@ public class Tower : MonoBehaviour
             s_GhostObject = null;
             s_GhostPrefab = null;
             s_GhostOwner = null;
-            s_GhostHasValidPosition = false;
         }
 
         if (ObjectToPlace == null)
@@ -115,21 +111,10 @@ public class Tower : MonoBehaviour
             );
 
             s_GhostObject.transform.position = snappedPosition;
-            s_GhostHasValidPosition = true;
-            if (!s_GhostObject.activeSelf)
-                s_GhostObject.SetActive(true);
-
             if (s_OccupiedPositions.Contains(snappedPosition))
                 SetGhostColor(Color.red);
             else
                 SetGhostColor(new Color(1f, 1f, 1f, 0.5f));
-        }
-        else
-        {
-            // No hit -> mark invalid and hide the ghost to prevent placement at (0,0,0)
-            s_GhostHasValidPosition = false;
-            if (s_GhostObject.activeSelf)
-                s_GhostObject.SetActive(false);
         }
     }
 
@@ -146,25 +131,58 @@ public class Tower : MonoBehaviour
         }
     }
 
+    // New: check the tile under the ghost at the moment of placement.
     void PlaceObject()
     {
         if (s_GhostObject == null || s_GhostPrefab == null)
             return;
 
-        // Don't allow placement when ghost isn't over a valid surface
-        if (!s_GhostHasValidPosition)
+        // Guard: only one placement per frame
+        if (Time.frameCount == s_LastPlacementFrame)
             return;
 
-        // Guard: only one placement per frame (prevents duplicate instantiation)
-        if (Time.frameCount == s_LastPlacementFrame)
+        // Raycast down from slightly above the ghost to find the tile it's sitting on
+        Vector3 origin = s_GhostObject.transform.position + Vector3.up * 0.5f;
+        if (!Physics.Raycast(origin, Vector3.down, out RaycastHit hit, 1f))
+            return; // no surface under ghost -> don't place
+
+        // Look for a Tile component on the hit object or its parents
+        var hitTile = hit.collider.GetComponentInParent<Tile>();
+
+        // If there's a Tile component, prefer its constructible flag if present.
+        bool canPlace = true;
+        if (hitTile != null)
+        {
+            // try to read a boolean property/field named "IsConstructible" or "_isConstructible"
+            var type = hitTile.GetType();
+            var prop = type.GetProperty("IsConstructible");
+            if (prop != null && prop.PropertyType == typeof(bool))
+            {
+                canPlace = (bool)prop.GetValue(hitTile);
+            }
+            else
+            {
+                var field = type.GetField("_isConstructible", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                            ?? type.GetField("isConstructible", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance)
+                            ?? type.GetField("IsConstructible", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
+                if (field != null && field.FieldType == typeof(bool))
+                    canPlace = (bool)field.GetValue(hitTile);
+                // if no property/field found, assume tile is constructible (true)
+            }
+        }
+        else
+        {
+            // No Tile component found: require that the hit object be explicitly tagged "Constructible"
+            //canPlace = hit.collider.gameObject.CompareTag("Constructible");
+        }
+
+        if (!canPlace)
             return;
 
         Vector3 placementPosition = s_GhostObject.transform.position;
         if (!s_OccupiedPositions.Contains(placementPosition))
         {
-            // mark the frame early to avoid races with other Towers
             s_LastPlacementFrame = Time.frameCount;
-
             Instantiate(s_GhostPrefab, placementPosition, Quaternion.identity);
             s_OccupiedPositions.Add(placementPosition);
         }
