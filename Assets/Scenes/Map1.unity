@@ -271,6 +271,7 @@ MonoBehaviour:
     Positions:
     - {x: 1, y: 13}
   _gridParentName: Tile
+  _autoGenerate: 1
 --- !u!4 &212489760
 Transform:
   m_ObjectHideFlags: 0
