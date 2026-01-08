@@ -18,6 +18,9 @@ public class Tower : MonoBehaviour
     // Prevent multiple placements in the same frame
     private static int s_LastPlacementFrame = -1;
 
+    // Whether the ghost currently sits over a valid raycast hit (inside play area)
+    private static bool s_GhostHasValidPosition = false;
+
     private void Start()
     {
         CreateGhostObjectIfNeeded();
@@ -58,6 +61,7 @@ public class Tower : MonoBehaviour
             s_GhostObject = null;
             s_GhostPrefab = null;
             s_GhostOwner = null;
+            s_GhostHasValidPosition = false;
         }
 
         if (ObjectToPlace == null)
@@ -111,10 +115,21 @@ public class Tower : MonoBehaviour
             );
 
             s_GhostObject.transform.position = snappedPosition;
+            s_GhostHasValidPosition = true;
+            if (!s_GhostObject.activeSelf)
+                s_GhostObject.SetActive(true);
+
             if (s_OccupiedPositions.Contains(snappedPosition))
                 SetGhostColor(Color.red);
             else
                 SetGhostColor(new Color(1f, 1f, 1f, 0.5f));
+        }
+        else
+        {
+            // No hit -> mark invalid and hide the ghost to prevent placement at (0,0,0)
+            s_GhostHasValidPosition = false;
+            if (s_GhostObject.activeSelf)
+                s_GhostObject.SetActive(false);
         }
     }
 
@@ -134,6 +149,10 @@ public class Tower : MonoBehaviour
     void PlaceObject()
     {
         if (s_GhostObject == null || s_GhostPrefab == null)
+            return;
+
+        // Don't allow placement when ghost isn't over a valid surface
+        if (!s_GhostHasValidPosition)
             return;
 
         // Guard: only one placement per frame (prevents duplicate instantiation)

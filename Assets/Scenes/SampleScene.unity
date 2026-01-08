@@ -270,7 +270,7 @@ MonoBehaviour:
   - Prefab: {fileID: 7093907283427388975, guid: 6c53106d0167e8e41a0548002581a1f5, type: 3}
     Positions:
     - {x: 1, y: 13}
-  _gridParentName: Tiles
+  _gridParentName: Tile
 --- !u!4 &212489760
 Transform:
   m_ObjectHideFlags: 0
