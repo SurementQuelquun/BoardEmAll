@@ -3,22 +3,14 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-
 public class App : MonoBehaviour
 {
-
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     public static App Instance { get; private set; }
-
-    private InputAction quitAction;
-
 
     public InputActionAsset InputSystem_Actions;
 
     private void Awake()
     {
-        // Ensure a single persistent App instance
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -31,36 +23,65 @@ public class App : MonoBehaviour
 
     IEnumerator Start()
     {
-        //this.quitAction = InputSystem.actions.FindAction("Quit");
-        //this.quitAction.Enable();
-        yield return StartCoroutine(WaitAndPrint("OutGame"));
+        yield return StartCoroutine(LoadSceneAdditiveIfNeeded("OutGame"));
     }
-    IEnumerator WaitAndPrint(string SceneName)
+
+    public void StartLoadMapAndGenerate(string sceneName)
     {
-        var loadOp = SceneManager.LoadSceneAsync(SceneName, LoadSceneMode.Additive);
+        StartCoroutine(LoadMapAndGenerate(sceneName));
+    }
+
+    private IEnumerator LoadSceneAdditiveIfNeeded(string sceneName)
+    {
+        var existing = SceneManager.GetSceneByName(sceneName);
+        if (!existing.IsValid())
+        {
+            var loadOp = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+            if (loadOp == null)
+            {
+                Debug.LogError($"Failed to start loading scene '{sceneName}'.");
+                yield break;
+            }
+            while (!loadOp.isDone) yield return null;
+        }
+    }
+
+    private IEnumerator LoadMapAndGenerate(string sceneName)
+    {
+        // 1. Load the scene additively
+        var loadOp = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
         if (loadOp == null)
         {
-            Debug.LogError($"Failed to start loading scene '{SceneName}'. Make sure it's added to Build Settings.");
+            Debug.LogError($"Failed to start loading scene '{sceneName}'.");
             yield break;
         }
 
-        int frameCount = 0;
-        // Wait until the async operation reports done, counting frames
+        // Wait until fully loaded
         while (!loadOp.isDone)
-        {
-            frameCount++;
             yield return null;
+
+        // 2. Get the scene reference
+        var scene = SceneManager.GetSceneByName(sceneName);
+        if (!scene.IsValid())
+        {
+            Debug.LogError($"Loaded scene '{sceneName}' is not valid.");
+            yield break;
         }
 
-        //Debug.Log($"{SceneName} Scene Loaded in {frameCount} frames");
-        //yield break;
-    }
+        // 3. IMPORTANT: Set the new scene as Active BEFORE generating anything
+        SceneManager.SetActiveScene(scene);
 
+        // Optional: Wait one frame to ensure Awake/OnEnable have fired in the new scene
+        yield return null;
 
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        // 4. Find GridManagers strictly within the loaded scene and Generate
+        foreach (var root in scene.GetRootGameObjects())
+        {
+            var gridManagers = root.GetComponentsInChildren<GridManager>(true);
+            foreach (var gm in gridManagers)
+            {
+                gm.Generate();
+            }
+        }
     }
 }
