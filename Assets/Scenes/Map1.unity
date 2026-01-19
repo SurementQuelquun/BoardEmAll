@@ -171,7 +171,7 @@ MonoBehaviour:
   rotationSpeed: 80
   minPitch: 20
   maxPitch: 80
-  minZoom: 2
+  minZoom: 5
   maxZoom: 20
   zoomSpeed: 2
   zoomSmoothing: 5
@@ -450,6 +450,7 @@ GameObject:
   m_Component:
   - component: {fileID: 747764146}
   - component: {fileID: 747764147}
+  - component: {fileID: 747764148}
   m_Layer: 0
   m_Name: Game UI Doc
   m_TagString: Untagged
@@ -495,6 +496,23 @@ MonoBehaviour:
   m_PivotReferenceSize: 0
   m_Pivot: 0
   m_WorldSpaceCollider: {fileID: 0}
+--- !u!114 &747764148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 747764145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1068bd31cb0473749b16fcd6626662d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIManager
+  uiDocument: {fileID: 747764147}
+  towerBuilder: {fileID: 1609831918}
+  gameMenuTemplate: {fileID: 9197481963319205126, guid: 9600dcdd9a5a647459eee01606c50c73, type: 3}
+  attackTowersTemplate: {fileID: 9197481963319205126, guid: 760fef545e4c4fa4984afd6366d1d7de, type: 3}
+  supportTowersTemplate: {fileID: 9197481963319205126, guid: cc8dde816b3983441be8cad33a0074da, type: 3}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -640,7 +658,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52fd8f407b38a00438ab9bcfdf5d0cda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tower
-  ObjectToPlace: {fileID: 3096475915016169651, guid: cc5a84020c0be164e9a54b8d7c72bbd9, type: 3}
+  flyingFishPrefab: {fileID: 6365877585182239463, guid: 8092f3b2f38cb2746a8941077e05cb32, type: 3}
+  krakenPrefab: {fileID: 4652352701994719324, guid: 86837d0226b1726438f35583470bae92, type: 3}
+  seaUrchinPrefab: {fileID: 9170047634703735485, guid: 0509755fd91bef4478bf7be91f23f87b, type: 3}
+  sharkPrefab: {fileID: 3096475915016169651, guid: cc5a84020c0be164e9a54b8d7c72bbd9, type: 3}
   gridsize: 1
 --- !u!1001 &1846580119
 PrefabInstance:

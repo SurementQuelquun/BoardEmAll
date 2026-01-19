@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 7585715953430266977}
   - component: {fileID: 6070933045076208665}
   - component: {fileID: 3491068850486068348}
-  - component: {fileID: 503103521614822730}
   m_Layer: 0
   m_Name: Tower
   m_TagString: Untagged
@@ -112,17 +111,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &503103521614822730
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4839559161897820126}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52fd8f407b38a00438ab9bcfdf5d0cda, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Tower
-  ObjectToPlace: {fileID: 3096475915016169651, guid: cc5a84020c0be164e9a54b8d7c72bbd9, type: 3}
-  gridsize: 1
