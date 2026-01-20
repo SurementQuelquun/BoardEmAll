@@ -11,7 +11,7 @@ public class Monster : MonoBehaviour
     [SerializeField]
     private float speed;
     [SerializeField]
-    private string resist = none;
+    private string resist = "";
 
 
 

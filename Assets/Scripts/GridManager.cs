@@ -125,9 +125,9 @@ public class GridManager : MonoBehaviour
             {
                 Color tileColor = colors[i];
                 (Tile tileToUse, string typeIfNode) = MakeTileFromColor(tileColor);
-                if (typeIfNode)
+                if (!string.IsNullOrEmpty(typeIfNode))
                 {
-                    nodeToAdd = new Node(x,z,typeIfNode);
+                    Node nodeToAdd = new Node(x,z,typeIfNode);
                     AddNodeToGraph(nodeToAdd);
                 }
                 var spawnTile = Instantiate(tileToUse, new Vector3(x, 0, z), Quaternion.identity, _gridParent);
@@ -141,19 +141,39 @@ public class GridManager : MonoBehaviour
 
     private void AddNodeToGraph(Node node)
     {
-        continue;
+        //Each node has array length 4, with neigbors up, down, left, right, in that order
+        this.pathGraph[node] = new Node[4];
     }
 
-    private Tile MakeTileFromColor(Color color) =>
-    color switch
-        {
-            (229,229,229,1) => (nonConstructibleTile, none),
-            (255,233,127,1) => (pathTile, "path"),
-            (255,178,127,1) => (intersectionTile, "intersection"),
-            (0,255,33,1) => (startTile, "start"),
-            (255,0,0,1) => (endTile, "end"),
-            _ => (constructibleTile, none),
-        };
+    private (Tile tile, string tiletype) MakeTileFromColor(Color tileColor)
+    {
+        Color nonConstColor = new Color32(229,229,229,255);
+        Color pathColor = new Color32(255,233,127,255);
+        Color interColor = new Color32(255,178,127,255);
+        Color startColor = new Color32(0,255,33,255);
+        Color endColor = new Color32(255,0,0,255);
 
+        if (tileColor.Equals(nonConstColor))
+        {
+            return(nonConstructibleTile,"");
+        }
+        if (tileColor.Equals(pathColor))
+        {
+            return(pathTile,"path");
+        }
+        if (tileColor.Equals(interColor))
+        {
+            return(intersectionTile,"intersection");
+        }
+        if (tileColor.Equals(startColor))
+        {
+            return(startTile,"start");
+        }
+        if (tileColor.Equals(endColor))
+        {
+            return(endTile,"end");
+        }
+        return(constructibleTile, "");
+    }
     
 }
