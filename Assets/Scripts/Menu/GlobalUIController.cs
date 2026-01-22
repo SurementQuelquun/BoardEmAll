@@ -12,12 +12,6 @@ public class GlobalUIController : MonoBehaviour
     public VisualTreeAsset attackTowersTemplate;
     public VisualTreeAsset supportTowersTemplate;
 
-    //[Header("Tower Prefabs")]
-    //public GameObject flyingFishPrefab;
-    //public GameObject krakenPrefab;
-    //public GameObject seaUrchinPrefab;
-    //public GameObject sharkPrefab;
-
     // The root element of the active UI
     private VisualElement root;
 
@@ -37,17 +31,6 @@ public class GlobalUIController : MonoBehaviour
         Debug.Log("UI: Loading Game Menu");
         uiDocument.visualTreeAsset = gameMenuTemplate;
         root = uiDocument.rootVisualElement;
-
-        // 2. Find the buttons in this specific template
-        //Button attackBtn = root.Q<Button>("AttackButton");
-        //Button supportBtn = root.Q<Button>("SupportButton"); // If you have one
-
-        // 3. Connect the buttons to functions
-        //if (attackBtn != null)
-        //    attackBtn.clicked += LoadAttackTowers;
-
-        //if (supportBtn != null)
-        //    supportBtn.clicked += LoadSupportTowers;
         Button attackBtn = root.Q<Button>("AttackButton");
         if (attackBtn != null) attackBtn.clicked += LoadAttackTowers;
 
@@ -65,18 +48,7 @@ public class GlobalUIController : MonoBehaviour
         Button backBtn = root.Q<Button>("BackButton");
         if (backBtn != null) backBtn.clicked += LoadGameMenu;
 
-        // 2. Find the Tower Buttons (MAKE SURE NAMES MATCH UXML)
-        //Button fishBtn = root.Q<Button>("FishButton");
-        //Button krakenBtn = root.Q<Button>("KrakenButton");
-        //Button urchinBtn = root.Q<Button>("UrchinButton");
-        //Button sharkBtn = root.Q<Button>("SharkButton");
 
-        //// 3. Connect Buttons to the Tower Script
-        //// We use a "Lambda" () => to pass the specific prefab
-        //if (fishBtn != null) fishBtn.clicked += () => towerBuilder.SelectTowerByID(0);
-        //if (krakenBtn != null) krakenBtn.clicked += () => towerBuilder.SelectTowerByID(1);
-        //if (urchinBtn != null) urchinBtn.clicked += () => towerBuilder.SelectTowerByID(2);
-        //if (sharkBtn != null) sharkBtn.clicked += () => towerBuilder.SelectTowerByID(3);
         // Setup Buttons with Debugs
         SetupTowerButton("FishButton", 0);
         SetupTowerButton("KrakenButton", 1);
