@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Shark : Tower
+public class Shark : TowerCombat
 {
     void Start()
     {

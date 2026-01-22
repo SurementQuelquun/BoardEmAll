@@ -88,7 +88,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SeaUrchin
   flyingFishPrefab: {fileID: 0}
   krakenPrefab: {fileID: 0}
-  seaUrchinPrefab: {fileID: 0}
+  seaUrchinPrefab: {fileID: 9170047634703735485}
   sharkPrefab: {fileID: 0}
   gridsize: 1
   damage: 10

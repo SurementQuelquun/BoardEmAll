@@ -1,2 +1,16 @@
 fileFormatVersion: 2
 guid: 52fd8f407b38a00438ab9bcfdf5d0cda
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - flyingFishPrefab: {instanceID: 0}
+  - krakenPrefab: {instanceID: 0}
+  - seaUrchinPrefab: {instanceID: 0}
+  - sharkPrefab: {instanceID: 0}
+  - projectilePrefab: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Kraken : Tower
+public class Kraken : TowerCombat
 {
     void Start()
     {

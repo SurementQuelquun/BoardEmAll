@@ -89,7 +89,7 @@ MonoBehaviour:
   flyingFishPrefab: {fileID: 0}
   krakenPrefab: {fileID: 0}
   seaUrchinPrefab: {fileID: 0}
-  sharkPrefab: {fileID: 0}
+  sharkPrefab: {fileID: 3096475915016169651}
   gridsize: 1
   damage: 10
   range: 5

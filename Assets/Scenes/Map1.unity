@@ -171,7 +171,7 @@ MonoBehaviour:
   rotationSpeed: 80
   minPitch: 20
   maxPitch: 80
-  minZoom: 5
+  minZoom: 2
   maxZoom: 20
   zoomSpeed: 2
   zoomSmoothing: 5

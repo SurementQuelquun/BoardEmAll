@@ -1,8 +1,6 @@
 using UnityEngine;
 
-using UnityEngine;
-
-public class SeaUrchin : Tower
+public class SeaUrchin : TowerCombat
 {
     protected override void Shoot(GameObject target)
     {

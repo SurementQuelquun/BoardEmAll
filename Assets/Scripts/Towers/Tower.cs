@@ -12,17 +12,14 @@ public class Tower : MonoBehaviour
     public GameObject seaUrchinPrefab;  // ID: 2
     public GameObject sharkPrefab;      // ID: 3
 
+    // Support tower prefabs (IDs 4..7)
+    public GameObject kelpiPrefab;     // ID: 4
+    public GameObject sirensPrefab;     // ID: 5
+    public GameObject cyllaPrefab;  // ID: 6
+    public GameObject energyPrefab; // ID: 7
+
     [Header("Settings")]
     public float gridsize = 1f;
-
-    [Header("Tower Stats")]
-    public float damage = 10f;
-    public float range = 5f;       // en unités Unity
-    public float fireRate = 1f;    // tirs par seconde
-    public GameObject projectilePrefab;
-
-    private float fireCountdown = 0f;
-
 
     // Internal variable for the tower we are CURRENTLY building
     private GameObject currentObjectToPlace;
@@ -38,7 +35,6 @@ public class Tower : MonoBehaviour
 
     private void Start()
     {
-        // Optional: Start with no tower selected
         currentObjectToPlace = null;
     }
 
@@ -55,20 +51,11 @@ public class Tower : MonoBehaviour
         // 3. Place on Click
         if (WasLeftMousePressedThisFrame())
         {
-
             PlaceObject();
         }
-        // 4. Handle Shooting
-        if (currentObjectToPlace == null) // La tour est déjà construite
-        {
-            UpdateShooting();
-            Debug.Log(name + " tente de tirer sur un monstre !");
-        }
-
     }
 
-    // --- NEW SELECTION FUNCTION ---
-    // 0 = Fish, 1 = Kraken, 2 = Urchin, 3 = Shark
+    // --- SELECTION FUNCTION ---
     public void SelectTowerByID(int towerID)
     {
         switch (towerID)
@@ -77,48 +64,49 @@ public class Tower : MonoBehaviour
             case 1: currentObjectToPlace = krakenPrefab; break;
             case 2: currentObjectToPlace = seaUrchinPrefab; break;
             case 3: currentObjectToPlace = sharkPrefab; break;
+
+            // Support towers
+            case 4: currentObjectToPlace = kelpiPrefab; break;
+            case 5: currentObjectToPlace = sirensPrefab; break;
+            case 6: currentObjectToPlace = cyllaPrefab; break;
+            case 7: currentObjectToPlace = energyPrefab; break;
+
             default: currentObjectToPlace = null; break;
         }
-
-        // Reset the ghost immediately to show the new tower
         DestroyGhost();
     }
 
-    // --- GHOST & PLACEMENT LOGIC ---
-
+    // --- GHOST LOGIC ---
     void CreateGhostObjectIfNeeded()
     {
-        // If we have nothing selected, destroy any existing ghost and return
         if (currentObjectToPlace == null)
         {
-            DestroyGhost();
+            // Only destroy if WE own it. This prevents conflicts.
+            if (s_GhostOwner == this) DestroyGhost();
             return;
         }
 
-        // If we already have the correct ghost, do nothing
         if (s_GhostObject != null && s_GhostPrefab == currentObjectToPlace)
         {
             if (s_GhostOwner == null) s_GhostOwner = this;
             return;
         }
 
-        // If ghost is wrong type, destroy it
         DestroyGhost();
 
-        // Create new ghost
         s_GhostObject = Instantiate(currentObjectToPlace);
         s_GhostPrefab = currentObjectToPlace;
         s_GhostOwner = this;
 
-        // Make it transparent and disable collider
+        // Disable collider on ghost so we don't click it
         var col = s_GhostObject.GetComponent<Collider>();
         if (col != null) col.enabled = false;
 
+        // Make transparent
         Renderer[] renderers = s_GhostObject.GetComponentsInChildren<Renderer>();
         foreach (Renderer renderer in renderers)
         {
             Material material = renderer.material;
-            // Setup transparency
             material.SetFloat("_Mode", 2);
             material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
             material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
@@ -155,62 +143,14 @@ public class Tower : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
             Vector3Int gridPos = WorldToGridPosition(hit.point);
-            Vector3 snappedPosition = (Vector3)gridPos * gridsize;
-            s_GhostObject.transform.position = snappedPosition;
+            s_GhostObject.transform.position = (Vector3)gridPos * gridsize;
 
-            // Red if occupied, standard if free
             if (s_OccupiedPositions.Contains(gridPos))
                 SetGhostColor(Color.red);
             else
                 SetGhostColor(new Color(1f, 1f, 1f, 0.5f));
         }
     }
-
-    void UpdateShooting()
-    {
-        if (fireCountdown > 0f)
-        {
-            fireCountdown -= Time.deltaTime;
-        }
-
-        // Cherche tous les monstres
-        GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
-        GameObject target = null;
-        float shortestDistance = Mathf.Infinity;
-
-        foreach (GameObject monster in monsters)
-        {
-            float distance = Vector3.Distance(transform.position, monster.transform.position);
-            if (distance < shortestDistance && distance <= range)
-            {
-                shortestDistance = distance;
-                target = monster;
-            }
-        }
-
-        if (target != null && fireCountdown <= 0f)
-        {
-            Shoot(target);
-            fireCountdown = 1f / fireRate;
-        }
-    }
-
-    protected virtual void Shoot(GameObject target)
-    {
-        if (projectilePrefab == null || target == null) return;
-
-        // Instancier le projectile
-        GameObject projectileGO = Instantiate(projectilePrefab, transform.position + Vector3.up * 0.5f, Quaternion.identity);
-
-        // Configurer le script du projectile
-        Projectile proj = projectileGO.GetComponent<Projectile>();
-        if (proj != null)
-        {
-            proj.SetTarget(target, damage);
-        }
-    }
-
-
 
     void PlaceObject()
     {
@@ -220,12 +160,10 @@ public class Tower : MonoBehaviour
         Vector3 origin = s_GhostObject.transform.position + Vector3.up * 0.5f;
         if (!Physics.Raycast(origin, Vector3.down, out RaycastHit hit, 1f)) return;
 
-        // Check if Constructible (Your existing logic)
         var hitTile = hit.collider.GetComponentInParent<Tile>();
         bool canPlace = true;
         if (hitTile != null)
         {
-            // Reflection fallback for "IsConstructible"
             var type = hitTile.GetType();
             var prop = type.GetProperty("IsConstructible");
             if (prop != null && prop.PropertyType == typeof(bool)) canPlace = (bool)prop.GetValue(hitTile);
@@ -245,20 +183,37 @@ public class Tower : MonoBehaviour
         if (!s_OccupiedPositions.Contains(gridPos))
         {
             s_LastPlacementFrame = Time.frameCount;
+
+            // Instantiate
             GameObject newTower = Instantiate(s_GhostPrefab, s_GhostObject.transform.position, Quaternion.identity);
 
-           
+            // Name
             newTower.name = $"{s_GhostPrefab.name} [{gridPos.x}, {gridPos.z}]";
 
-            
+            // Organize
             Transform parentFolder = GetTowerParentFolder(s_GhostPrefab.name);
             newTower.transform.parent = parentFolder;
 
-            // 4. Mark position as occupied
             s_OccupiedPositions.Add(gridPos);
-            currentObjectToPlace = null;
+            currentObjectToPlace = null; 
             DestroyGhost();
         }
+    }
+
+    // --- HELPERS ---
+    Transform GetTowerParentFolder(string towerType)
+    {
+        GameObject towersRoot = GameObject.Find("Towers");
+        if (towersRoot == null) towersRoot = new GameObject("Towers");
+
+        Transform subFolder = towersRoot.transform.Find(towerType);
+        if (subFolder == null)
+        {
+            GameObject newSubFolder = new GameObject(towerType);
+            newSubFolder.transform.parent = towersRoot.transform;
+            subFolder = newSubFolder.transform;
+        }
+        return subFolder;
     }
 
     private Vector3Int WorldToGridPosition(Vector3 worldPosition)
@@ -279,42 +234,19 @@ public class Tower : MonoBehaviour
 
     private Vector2 GetMouseScreenPosition()
     {
-#if ENABLE_INPUT_SYSTEM && !ENABLE_LEGACY_INPUT_MANAGER
+    #if ENABLE_INPUT_SYSTEM && !ENABLE_LEGACY_INPUT_MANAGER
         return Mouse.current.position.ReadValue();
-#else
+    #else
         return Input.mousePosition;
-#endif
+    #endif
     }
 
     private bool WasLeftMousePressedThisFrame()
     {
-#if ENABLE_INPUT_SYSTEM && !ENABLE_LEGACY_INPUT_MANAGER
+    #if ENABLE_INPUT_SYSTEM && !ENABLE_LEGACY_INPUT_MANAGER
         return Mouse.current.leftButton.wasPressedThisFrame;
-#else
+    #else
         return Input.GetMouseButtonDown(0);
-#endif
-    }
-    Transform GetTowerParentFolder(string towerType)
-    {
-        // 1. Find or Create the Main "Towers" folder
-        GameObject towersRoot = GameObject.Find("Towers");
-        if (towersRoot == null)
-        {
-            towersRoot = new GameObject("Towers");
-        }
-
-        // 2. Find or Create the Sub-folder (e.g., "Shark") inside "Towers"
-        // We look for a child with the name of the tower
-        Transform subFolder = towersRoot.transform.Find(towerType);
-
-        if (subFolder == null)
-        {
-            // If it doesn't exist, create it and parent it to "Towers"
-            GameObject newSubFolder = new GameObject(towerType);
-            newSubFolder.transform.parent = towersRoot.transform;
-            subFolder = newSubFolder.transform;
-        }
-
-        return subFolder;
+    #endif
     }
 }

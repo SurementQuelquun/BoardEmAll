@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FlyingFish : Tower
+public class FlyingFish : TowerCombat
 {
     void Start()
     {

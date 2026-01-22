@@ -28,7 +28,7 @@ public class GlobalUIController : MonoBehaviour
     public void LoadGameMenu()
     {
         // 1. Clone the template into the root
-        Debug.Log("UI: Loading Game Menu");
+        //Debug.Log("UI: Loading Game Menu");
         uiDocument.visualTreeAsset = gameMenuTemplate;
         root = uiDocument.rootVisualElement;
         Button attackBtn = root.Q<Button>("AttackButton");
@@ -65,7 +65,13 @@ public class GlobalUIController : MonoBehaviour
         if (backBtn != null)
             backBtn.clicked += LoadGameMenu;
 
-        Debug.Log("Switched to Support Towers Menu");
+        // Setup support tower buttons (IDs 4..7)
+        SetupTowerButton("KelpiButton", 4);
+        SetupTowerButton("SirensButton", 5);
+        SetupTowerButton("CyllaButton", 6);
+        SetupTowerButton("EnergyButton", 7);
+
+        //Debug.Log("Switched to Support Towers Menu");
     }
     // Helper to keep code clean and add logging
     private void SetupTowerButton(string buttonName, int id)
@@ -75,13 +81,13 @@ public class GlobalUIController : MonoBehaviour
         {
             btn.clicked += () =>
             {
-                Debug.Log($"UI: {buttonName} clicked! Sending ID {id} to Tower.cs");
+                //Debug.Log($"UI: {buttonName} clicked! Sending ID {id} to Tower.cs");
                 towerBuilder.SelectTowerByID(id);
             };
         }
         else
         {
-            Debug.LogWarning($"UI: Could not find button named '{buttonName}' in AttackTowers.uxml");
+            Debug.LogWarning($"UI: Could not find button named '{buttonName}' in the current UXML.");
         }
     }
 }
