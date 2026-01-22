@@ -15,6 +15,15 @@ public class Tower : MonoBehaviour
     [Header("Settings")]
     public float gridsize = 1f;
 
+    [Header("Tower Stats")]
+    public float damage = 10f;
+    public float range = 5f;       // en unités Unity
+    public float fireRate = 1f;    // tirs par seconde
+    public GameObject projectilePrefab;
+
+    private float fireCountdown = 0f;
+
+
     // Internal variable for the tower we are CURRENTLY building
     private GameObject currentObjectToPlace;
 
@@ -49,6 +58,13 @@ public class Tower : MonoBehaviour
 
             PlaceObject();
         }
+        // 4. Handle Shooting
+        if (currentObjectToPlace == null) // La tour est déjà construite
+        {
+            UpdateShooting();
+            Debug.Log(name + " tente de tirer sur un monstre !");
+        }
+
     }
 
     // --- NEW SELECTION FUNCTION ---
@@ -149,6 +165,52 @@ public class Tower : MonoBehaviour
                 SetGhostColor(new Color(1f, 1f, 1f, 0.5f));
         }
     }
+
+    void UpdateShooting()
+    {
+        if (fireCountdown > 0f)
+        {
+            fireCountdown -= Time.deltaTime;
+        }
+
+        // Cherche tous les monstres
+        GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
+        GameObject target = null;
+        float shortestDistance = Mathf.Infinity;
+
+        foreach (GameObject monster in monsters)
+        {
+            float distance = Vector3.Distance(transform.position, monster.transform.position);
+            if (distance < shortestDistance && distance <= range)
+            {
+                shortestDistance = distance;
+                target = monster;
+            }
+        }
+
+        if (target != null && fireCountdown <= 0f)
+        {
+            Shoot(target);
+            fireCountdown = 1f / fireRate;
+        }
+    }
+
+    protected virtual void Shoot(GameObject target)
+    {
+        if (projectilePrefab == null || target == null) return;
+
+        // Instancier le projectile
+        GameObject projectileGO = Instantiate(projectilePrefab, transform.position + Vector3.up * 0.5f, Quaternion.identity);
+
+        // Configurer le script du projectile
+        Projectile proj = projectileGO.GetComponent<Projectile>();
+        if (proj != null)
+        {
+            proj.SetTarget(target, damage);
+        }
+    }
+
+
 
     void PlaceObject()
     {

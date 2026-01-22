@@ -64,10 +64,34 @@ PrefabInstance:
     - {fileID: 503103521614822730, guid: 83ed22d837aa1294aaa96df801b2fb75, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4839559161897820126, guid: 83ed22d837aa1294aaa96df801b2fb75, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2073283653653861857}
   m_SourcePrefab: {fileID: 100100000, guid: 83ed22d837aa1294aaa96df801b2fb75, type: 3}
 --- !u!1 &9170047634703735485 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4839559161897820126, guid: 83ed22d837aa1294aaa96df801b2fb75, type: 3}
   m_PrefabInstance: {fileID: 4353605177572672867}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2073283653653861857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9170047634703735485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0439a0780a8b5a4aafaf8d3e8deaab2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SeaUrchin
+  flyingFishPrefab: {fileID: 0}
+  krakenPrefab: {fileID: 0}
+  seaUrchinPrefab: {fileID: 0}
+  sharkPrefab: {fileID: 0}
+  gridsize: 1
+  damage: 10
+  range: 5
+  fireRate: 1
+  projectilePrefab: {fileID: 7726805206132556096, guid: f3b30b77364da7147822d49f1a04d74a, type: 3}
