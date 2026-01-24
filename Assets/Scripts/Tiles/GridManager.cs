@@ -9,11 +9,40 @@ public class TilePrefabEntry
     public List<Vector2Int> Positions = new List<Vector2Int>();
 }
 
+public class Node
+{
+    public int x;
+    public int z;
+    public string nodeType;
+
+    public Node(int x_pos, int z_pos, string typeOfNode)
+    {
+        x = x_pos;
+        z = z_pos;
+        nodeType = typeOfNode;
+    }
+}
+
+
+
 public class GridManager : MonoBehaviour
 {
     [SerializeField] private int _width, _height;
+
+    // Tiles for automatic generation
+    [SerializeField] private Tile nonConstructibleTile;
+    [SerializeField] private Tile pathTile;
+    [SerializeField] private Tile intersectionTile;
+    [SerializeField] private Tile startTile;
+    [SerializeField] private Tile endTile;
+    [SerializeField] private Tile constructibleTile;
+
+    public Dictionary<Node,Node[]> pathGraph;
+
+    // Manual generation
     [SerializeField] private Tile _defaultTilePrefab;
     [SerializeField] private List<TilePrefabEntry> _tilePrefabs = new List<TilePrefabEntry>();
+
     [SerializeField] private string _gridParentName = "Tiles";
 
     private Transform _gridParent;
@@ -86,4 +115,69 @@ public class GridManager : MonoBehaviour
         }
         return null;
     }
+
+        private void GenerateGridFromMap(Texture2D mapImage)
+    {
+        Color[] colors = mapImage.GetPixels();
+        int mapWidth = mapImage.width;
+        int mapHeight = mapImage.height;
+
+        int i = 0;
+        for (int x = 0; x < mapWidth; x++)
+        {
+            for (int z = 0; z< mapHeight; z++)
+            {
+                Color tileColor = colors[i];
+                (Tile tileToUse, string typeIfNode) = MakeTileFromColor(tileColor);
+                if (!string.IsNullOrEmpty(typeIfNode))
+                {
+                    Node nodeToAdd = new Node(x,z,typeIfNode);
+                    AddNodeToGraph(nodeToAdd);
+                }
+                var spawnTile = Instantiate(tileToUse, new Vector3(x, 0, z), Quaternion.identity, _gridParent);
+                spawnTile.name = $"Tile {x} {z}";
+                i++;
+            }
+        }
+
+    }
+
+    private void AddNodeToGraph(Node node)
+    {
+        //Each node has array length 4, with neigbors up, down, left, right, in that order
+        this.pathGraph[node] = new Node[4];
+        //TBD
+    }
+
+    private (Tile tile, string tiletype) MakeTileFromColor(Color tileColor)
+    {
+        Color nonConstColor = new Color32(229,229,229,255);
+        Color pathColor = new Color32(255,233,127,255);
+        Color interColor = new Color32(255,178,127,255);
+        Color startColor = new Color32(0,255,33,255);
+        Color endColor = new Color32(255,0,0,255);
+
+        if (tileColor.Equals(nonConstColor))
+        {
+            return(nonConstructibleTile,"");
+        }
+        if (tileColor.Equals(pathColor))
+        {
+            return(pathTile,"path");
+        }
+        if (tileColor.Equals(interColor))
+        {
+            return(intersectionTile,"intersection");
+        }
+        if (tileColor.Equals(startColor))
+        {
+            return(startTile,"start");
+        }
+        if (tileColor.Equals(endColor))
+        {
+            return(endTile,"end");
+        }
+        return(constructibleTile, "");
+    }
 }
+
