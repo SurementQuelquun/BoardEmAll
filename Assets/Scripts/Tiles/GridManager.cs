@@ -140,17 +140,20 @@ public class GridManager : MonoBehaviour
         pathGraph = new Dictionary<Node, List<Node>>();
 
         //Read map
-        Color[] _colors = mapImage.GetPixels();
+        Color32[] _colors = mapImage.GetPixels32();
         _height = mapImage.height;
         _width = mapImage.width;
 
+        Debug.Log($"Texture width={mapImage.width}, height={mapImage.height}, format={mapImage.format}");
+
         int i = 0;
-        for(int x = 0; x < _width; x++)
+        for(int z = 0; z < _height; z++)
         {
-            for(int z = 0; z< _height; z++)
+            for(int x = 0; x< _width; x++)
             {
-                Color _currentTileColor = _colors[i];
+                Color32 _currentTileColor = _colors[i];
                 (Tile _currentTile, string _currentTypeOfTile) = GetTileFromColor(_currentTileColor);
+                print(_currentTypeOfTile);
                 // add node to graph keys
                 if (_currentTile._isNode)
                 {
@@ -208,7 +211,7 @@ public class GridManager : MonoBehaviour
             // Up :
             if(node_z < _height -1)
             {
-                Color _upNeighborColor = _mapImage.GetPixel(node_x,node_z+1);
+                Color32 _upNeighborColor = _mapImage.GetPixel(node_x,node_z+1);
                 (Tile _upNeighborTile, string _upNeighborType) = GetTileFromColor(_upNeighborColor);
                 if (_upNeighborTile._isNode)
                 {
@@ -220,7 +223,7 @@ public class GridManager : MonoBehaviour
             // Down :
             if(node_z > 0)
             {
-                Color _downNeighborColor = _mapImage.GetPixel(node_x,node_z-1);
+                Color32 _downNeighborColor = _mapImage.GetPixel(node_x,node_z-1);
                 (Tile _downNeighborTile, string _downNeighborType) = GetTileFromColor(_downNeighborColor);
                 if (_downNeighborTile._isNode)
                 {
@@ -231,7 +234,7 @@ public class GridManager : MonoBehaviour
             // Left :
             if(node_x > 0)
             {
-                Color _leftNeighborColor = _mapImage.GetPixel(node_x-1,node_z);
+                Color32 _leftNeighborColor = _mapImage.GetPixel(node_x-1,node_z);
                 (Tile _leftNeighborTile, string _leftNeighborType) = GetTileFromColor(_leftNeighborColor);
                 if (_leftNeighborTile._isNode)
                 {
@@ -242,7 +245,7 @@ public class GridManager : MonoBehaviour
             // Right:
             if(node_x < _width -1)
             {
-                Color _rightNeighborColor = _mapImage.GetPixel(node_x+1,node_z);
+                Color32 _rightNeighborColor = _mapImage.GetPixel(node_x+1,node_z);
                 (Tile _rightNeighborTile, string _rightNeighborType) = GetTileFromColor(_rightNeighborColor);
                 if (_rightNeighborTile._isNode)
                 {
@@ -254,31 +257,34 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    private (Tile tile, string nodeType) GetTileFromColor(Color tileColor)
+    private (Tile tile, string nodeType) GetTileFromColor(Color32 tileColor)
     {
-        Color _nonConstColor = new Color32(229,229,229,255);
-        Color _pathColor = new Color32(255,233,127,255);
-        Color _interColor = new Color32(255,178,127,255);
-        Color _startColor = new Color32(0,255,33,255);
-        Color _endColor = new Color32(255,0,0,255);
+        //Color32 _color = (Color32)tileColor;
 
-        if (tileColor.Equals(_nonConstColor))
+
+        //Color _nonConstColor = new Color32(229,229,229,255);
+        //Color _pathColor = new Color32(255,233,127,255);
+        //Color _interColor = new Color32(255,178,127,255);
+        //Color _startColor = new Color32(0,255,33,255);
+        //Color _endColor = new Color32(255,0,0,255);
+
+        if (tileColor.Equals(new Color32(229,229,229,255)))
         {
-            return(_nonConstructibleTilePrefab,"non contructible");
+            return(_nonConstructibleTilePrefab,"non constructible");
         }
-        if (tileColor.Equals(_pathColor))
+        if (tileColor.Equals(new Color32(255,233,127,255)))
         {
             return(_pathTilePrefab,"path");
         }
-        if (tileColor.Equals(_interColor))
+        if (tileColor.Equals(new Color32(255,178,127,255)))
         {
             return(_intersectionTilePrefab,"intersection");
         }
-        if (tileColor.Equals(_startColor))
+        if (tileColor.Equals(new Color32(0,255,33,255)))
         {
             return(_startTilePrefab,"start");
         }
-        if (tileColor.Equals(_endColor))
+        if (tileColor.Equals(new Color32(255,0,0,255)))
         {
             return(_endTilePrefab,"end");
         }
