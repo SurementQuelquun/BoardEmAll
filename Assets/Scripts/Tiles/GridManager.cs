@@ -27,13 +27,13 @@ public class Node
         this.z_pos = z;
         this.nodeType = type;
     }
-    private bool Equals(Node toCompare)
-    {
-        if (this.x_pos != toCompare.x_pos) return false;
-        if (this.z_pos != toCompare.z_pos) return false;
-        if (!this.nodeType.Equals(toCompare.nodeType)) return false;
-        return true;
-    }
+    //private bool Equals(Node toCompare)
+    //{
+    //    if (this.x_pos != toCompare.x_pos) return false;
+    //    if (this.z_pos != toCompare.z_pos) return false;
+    //    if (!this.nodeType.Equals(toCompare.nodeType)) return false;
+    //    return true;
+    //}
 }
 
 public class GridManager : MonoBehaviour

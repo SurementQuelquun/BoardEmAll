@@ -104,6 +104,14 @@ public class Monster : MonoBehaviour
             return;
         }
 
+        // If this is the finish tile, reduce player HP and destroy this monster
+        if (currentTile.IsFinish)
+        {
+            PlayerUI.Instance?.TakeDamage(1);
+            Destroy(gameObject);
+            return;
+        }
+
         // If current tile is a node, check forward first; only if forward blocked consider left/right
         if (currentTile.IsNode)
         {
