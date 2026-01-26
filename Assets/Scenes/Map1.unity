@@ -204,8 +204,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34c6ccab38fe98b4ebf48f714b481c37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GridManager
+  _map: {fileID: 2800000, guid: 155f1317bb5c1eb43978cdfaeedd5f5a, type: 3}
   _width: 23
   _height: 17
+  _nonConstructibleTilePrefab: {fileID: 2709388716795126830, guid: 689c8789fac061a418b4fcf7386d2cf0, type: 3}
+  _startTilePrefab: {fileID: 6257504400006356944, guid: e844285c0a70b444eb566720981d9782, type: 3}
+  _pathTilePrefab: {fileID: 6277900416738046574, guid: b370a9106e6c93945aba0ff42a0dce8b, type: 3}
+  _intersectionTilePrefab: {fileID: 7849096244805036037, guid: 1a5aa57b30885dc4c95825da860e025b, type: 3}
+  _endTilePrefab: {fileID: 7093907283427388975, guid: 6c53106d0167e8e41a0548002581a1f5, type: 3}
   _defaultTilePrefab: {fileID: 1276852487798360467, guid: 79da6e13baf35fa4492b1e94df68d11f, type: 3}
   _tilePrefabs:
   - Prefab: {fileID: 6257504400006356944, guid: e844285c0a70b444eb566720981d9782, type: 3}
