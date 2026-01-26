@@ -9,4 +9,7 @@ public class Tile : MonoBehaviour
 
     // Exposed read-only property used by placement logic.
     public bool IsConstructible => _isConstructible;
+
+    // Exposed read-only property used by pathing / monsters.
+    public bool IsWalkable => _isWalkable;
 }
