@@ -207,3 +207,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tile
   _isConstructible: 0
+  _isNode: 0
+  _isWalkable: 1
