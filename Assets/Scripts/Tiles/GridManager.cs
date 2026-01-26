@@ -7,6 +7,12 @@ public class TilePrefabEntry
 {
     public Tile Prefab;
     public List<Vector2Int> Positions = new List<Vector2Int>();
+
+    public TilePrefabEntry(Tile prefab)
+    {
+        this.Prefab = prefab;
+        this.Positions = new List<Vector2Int>();
+    }
 }
 
 public class Node
@@ -15,6 +21,12 @@ public class Node
     public int z_pos;
     public string nodeType;
 
+    public Node(int x, int z, string type)
+    {
+        this.x_pos = x;
+        this.z_pos = z;
+        this.nodeType = type;
+    }
     private bool Equals(Node toCompare)
     {
         if (this.x_pos != toCompare.x_pos) return false;
@@ -41,7 +53,6 @@ public class GridManager : MonoBehaviour
     [SerializeField] private string _gridParentName = "Tiles";
 
     public Dictionary<Node,List<Node>> pathGraph;
-    [SerializeField] public Texture2D mapImage;
 
     private Transform _gridParent;
     [SerializeField] private bool _autoGenerate = false;
@@ -51,7 +62,8 @@ public class GridManager : MonoBehaviour
         if (_autoGenerate)
         {
             EnsureParent();
-            //GenerateGraph(_map);
+            GenerateGraph(_map);
+            FillGraphNeighbors(pathGraph, _map);
             GenerateGrid();
         }
     }
@@ -148,7 +160,7 @@ public class GridManager : MonoBehaviour
                 }
 
                 // add position to correct tileprefabentry
-                Vector2Int _pos = Vector2Int(x,z);
+                Vector2Int _pos = new Vector2Int(x,z);
                 if (_currentTypeOfTile.Equals("non constructible"))
                 {
                     _nonConstrTileEntry.Positions.Add(_pos);
@@ -197,10 +209,10 @@ public class GridManager : MonoBehaviour
             if(node_z < _height -1)
             {
                 Color _upNeighborColor = _mapImage.GetPixel(node_x,node_z+1);
-                (Tile _upNeighborTile, string _upNeighborType) = MakeTileFromColor(_upNeighborColor);
+                (Tile _upNeighborTile, string _upNeighborType) = GetTileFromColor(_upNeighborColor);
                 if (_upNeighborTile._isNode)
                 {
-                    Node _upNeighbor = newNode(node_x,node_z+1,_upNeighborType);
+                    Node _upNeighbor = new Node(node_x,node_z+1,_upNeighborType);
                     g.Value.Add(_upNeighbor);
                 }
 
@@ -209,10 +221,10 @@ public class GridManager : MonoBehaviour
             if(node_z > 0)
             {
                 Color _downNeighborColor = _mapImage.GetPixel(node_x,node_z-1);
-                (Tile _downNeighborTile, string _downNeighborType) = MakeTileFromColor(_downNeighborColor);
+                (Tile _downNeighborTile, string _downNeighborType) = GetTileFromColor(_downNeighborColor);
                 if (_downNeighborTile._isNode)
                 {
-                    Node _downNeighbor = newNode(node_x,node_z-1,_downNeighborType);
+                    Node _downNeighbor = new Node(node_x,node_z-1,_downNeighborType);
                     g.Value.Add(_downNeighbor);
                 }
             }
@@ -220,19 +232,21 @@ public class GridManager : MonoBehaviour
             if(node_x > 0)
             {
                 Color _leftNeighborColor = _mapImage.GetPixel(node_x-1,node_z);
-                (Tile _leftNeighborTile, string _leftNeighborType) = MakeTileFromColor(_leftNeighborColor);
+                (Tile _leftNeighborTile, string _leftNeighborType) = GetTileFromColor(_leftNeighborColor);
                 if (_leftNeighborTile._isNode)
-                    Node _leftNeighbor = newNode(node_x-1,node_z,_leftNeighborType);
+                {
+                    Node _leftNeighbor = new Node(node_x-1,node_z,_leftNeighborType);
                     g.Value.Add(_leftNeighbor);
+                }
             }
             // Right:
             if(node_x < _width -1)
             {
                 Color _rightNeighborColor = _mapImage.GetPixel(node_x+1,node_z);
-                (Tile _rightNeighborTile, string _rightNeighborType) = MakeTileFromColor(_rightNeighborColor);
+                (Tile _rightNeighborTile, string _rightNeighborType) = GetTileFromColor(_rightNeighborColor);
                 if (_rightNeighborTile._isNode)
                 {
-                    Node _rightNeighbor = newNode(node_x+1,node_z,_neighborType);
+                    Node _rightNeighbor = new Node(node_x+1,node_z,_rightNeighborType);
                     g.Value.Add(_rightNeighbor);
                 }
             }
@@ -240,7 +254,7 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    private (Tile tile, string nodeType) GetTileFromColor(Color color)
+    private (Tile tile, string nodeType) GetTileFromColor(Color tileColor)
     {
         Color _nonConstColor = new Color32(229,229,229,255);
         Color _pathColor = new Color32(255,233,127,255);
@@ -250,24 +264,24 @@ public class GridManager : MonoBehaviour
 
         if (tileColor.Equals(_nonConstColor))
         {
-            return(nonConstructibleTile,"non contructible");
+            return(_nonConstructibleTilePrefab,"non contructible");
         }
         if (tileColor.Equals(_pathColor))
         {
-            return(pathTile,"path");
+            return(_pathTilePrefab,"path");
         }
         if (tileColor.Equals(_interColor))
         {
-            return(intersectionTile,"intersection");
+            return(_intersectionTilePrefab,"intersection");
         }
         if (tileColor.Equals(_startColor))
         {
-            return(startTile,"start");
+            return(_startTilePrefab,"start");
         }
         if (tileColor.Equals(_endColor))
         {
-            return(endTile,"end");
+            return(_endTilePrefab,"end");
         }
-        return(constructibleTile, "");
+        return(_defaultTilePrefab, "");
     }
 }
