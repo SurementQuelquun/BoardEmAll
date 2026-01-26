@@ -693,6 +693,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -6997355239125661125, guid: 1c5f9c0b40db2714cbe0f62029f78520, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 1961434644}
+    - target: {fileID: -6997355239125661125, guid: 1c5f9c0b40db2714cbe0f62029f78520, type: 3}
+      propertyPath: moveSpeed
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2577629982845579472, guid: 1c5f9c0b40db2714cbe0f62029f78520, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6164706210990065479, guid: 1c5f9c0b40db2714cbe0f62029f78520, type: 3}
       propertyPath: m_Name
       value: Skeleton
@@ -742,6 +754,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c5f9c0b40db2714cbe0f62029f78520, type: 3}
+--- !u!95 &1961434644 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2577629982845579472, guid: 1c5f9c0b40db2714cbe0f62029f78520, type: 3}
+  m_PrefabInstance: {fileID: 1846580119}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2121745634
 PrefabInstance:
   m_ObjectHideFlags: 0
