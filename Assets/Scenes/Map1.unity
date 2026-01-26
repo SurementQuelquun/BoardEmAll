@@ -791,6 +791,10 @@ MonoBehaviour:
   krakenPrefab: {fileID: 4652352701994719324, guid: 86837d0226b1726438f35583470bae92, type: 3}
   seaUrchinPrefab: {fileID: 9170047634703735485, guid: 0509755fd91bef4478bf7be91f23f87b, type: 3}
   sharkPrefab: {fileID: 3096475915016169651, guid: cc5a84020c0be164e9a54b8d7c72bbd9, type: 3}
+  kelpiPrefab: {fileID: 0}
+  sirensPrefab: {fileID: 0}
+  cyllaPrefab: {fileID: 0}
+  energyPrefab: {fileID: 0}
   gridsize: 1
 --- !u!1 &1771198798 stripped
 GameObject:
