@@ -45,11 +45,6 @@ public class MenuButtons : MonoBehaviour
     {
         // Start loading the scene additively
         var loadOp = SceneManager.LoadSceneAsync(sceneToLoad, LoadSceneMode.Additive);
-        if (loadOp == null)
-        {
-            Debug.LogError($"Failed to start loading scene '{sceneToLoad}'.");
-            yield break;
-        }
 
         // Wait until the load finishes
         while (!loadOp.isDone)
@@ -57,14 +52,9 @@ public class MenuButtons : MonoBehaviour
 
         // Ensure scene is available, then set it active
         var newScene = SceneManager.GetSceneByName(sceneToLoad);
-        if (newScene.IsValid())
-        {
-            SceneManager.SetActiveScene(newScene);
-        }
-        else
-        {
-            Debug.LogWarning($"Loaded scene '{sceneToLoad}' is not valid.");
-        }
+        SceneManager.SetActiveScene(newScene);
+
+
 
         // Optionally unload the previous scene (if provided)
         if (!string.IsNullOrEmpty(sceneToUnload))

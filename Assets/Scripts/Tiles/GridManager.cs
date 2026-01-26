@@ -85,8 +85,6 @@ public class GridManager : MonoBehaviour
         var go = new GameObject(_gridParentName);
         go.transform.position = Vector3.zero;
 
-        // IMPORTANT: Force this new object into the same scene as this GridManager script
-        // This ensures it doesn't accidentally end up in "App" or "DontDestroyOnLoad"
         SceneManager.MoveGameObjectToScene(go, this.gameObject.scene);
 
         _gridParent = go.transform;
@@ -112,9 +110,6 @@ public class GridManager : MonoBehaviour
 
                 var spawnTile = Instantiate(prefabToUse, new Vector3(x, 0, z), Quaternion.identity, _gridParent);
                 spawnTile.name = $"Tile {x} {z}";
-
-                // Ensure the spawned tile is also in the correct scene (should happen automatically via parent, but good for safety)
-                // spawnTile.transform.SetParent(_gridParent); 
             }
         }
     }
