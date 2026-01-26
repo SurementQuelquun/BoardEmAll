@@ -67,9 +67,9 @@ public class GlobalUIController : MonoBehaviour
 
         // Setup support tower buttons (IDs 4..7)
         SetupTowerButton("KelpiButton", 4);
-        SetupTowerButton("SirensButton", 5);
-        SetupTowerButton("CyllaButton", 6);
-        SetupTowerButton("EnergyButton", 7);
+        SetupTowerButton("SirenButton", 5);
+        SetupTowerButton("ScyllaButton", 6);
+        //SetupTowerButton("EnergyButton", 7);
 
         //Debug.Log("Switched to Support Towers Menu");
     }

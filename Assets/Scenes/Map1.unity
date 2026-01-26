@@ -664,9 +664,9 @@ MonoBehaviour:
   krakenPrefab: {fileID: 4652352701994719324, guid: 86837d0226b1726438f35583470bae92, type: 3}
   seaUrchinPrefab: {fileID: 9170047634703735485, guid: 0509755fd91bef4478bf7be91f23f87b, type: 3}
   sharkPrefab: {fileID: 3096475915016169651, guid: cc5a84020c0be164e9a54b8d7c72bbd9, type: 3}
-  kelpiPrefab: {fileID: 0}
-  sirensPrefab: {fileID: 0}
-  cyllaPrefab: {fileID: 0}
+  kelpiPrefab: {fileID: 4618831666228688163, guid: 329ac44a4a04b404cb2e327f5bccf5e5, type: 3}
+  sirensPrefab: {fileID: 1378340259842040698, guid: 18e3d4fb7e23ffa40a613c65b150766c, type: 3}
+  cyllaPrefab: {fileID: 7700663848981362003, guid: d11c091244662dc45a619afad0b6e388, type: 3}
   energyPrefab: {fileID: 0}
   gridsize: 1
 --- !u!1 &1771198798 stripped
