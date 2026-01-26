@@ -657,6 +657,7 @@ MonoBehaviour:
   sirensPrefab: {fileID: 0}
   cyllaPrefab: {fileID: 0}
   energyPrefab: {fileID: 0}
+  rangeIndicatorPrefab: {fileID: 2591093647622413982, guid: 56ba6b4e67954694094fdff2a69bf9f5, type: 3}
   gridsize: 1
 --- !u!1 &1771198798 stripped
 GameObject:
