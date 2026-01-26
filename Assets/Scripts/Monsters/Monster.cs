@@ -7,7 +7,8 @@ public class Monster : MonoBehaviour
     private float currentHealth;
 
     [Header("Movement")]
-    public float moveSpeed = 2f;    // units per second along +X
+    public Vector2Int direction = new Vector2Int(1, 0); // default +X (right)
+    public float moveSpeed = 2f;    // units per second
     public float startDelay = 2f;   // seconds before starting to move
 
     [Header("Animation")]
@@ -16,8 +17,13 @@ public class Monster : MonoBehaviour
 
     [Header("Options")]
     public bool snapToGridOnStart = true; // snap to integer grid at start
+    public float centerEpsilon = 0.05f;  // threshold to consider "on center" of tile
 
     bool isMoving = false;
+
+    // track last tile we processed to reduce repeated checks
+    private int _lastProcessedTileX = int.MinValue;
+    private int _lastProcessedTileZ = int.MinValue;
 
     void Start()
     {
@@ -35,44 +41,127 @@ public class Monster : MonoBehaviour
             transform.position = new Vector3(Mathf.Round(p.x), p.y, Mathf.Round(p.z));
         }
 
+        if (moveSpeed <= 0f) yield break;
+
+        // Check current tile exists & is walkable
+        int curX = Mathf.RoundToInt(transform.position.x);
+        int curZ = Mathf.RoundToInt(transform.position.z);
+        GameObject curTileGO = GameObject.Find($"Tile {curX} {curZ}");
+        if (curTileGO == null) yield break;
+        Tile curTile = curTileGO.GetComponent<Tile>();
+        if (curTile == null || !curTile.IsWalkable) yield break;
+
+        // Check immediate forward tile before starting
+        int nextX = curX + direction.x;
+        int nextZ = curZ + direction.y;
+        if (!CheckWalkableAt(nextX, nextZ)) yield break;
+
         isMoving = true;
     }
 
     void Update()
     {
-        // Update animator when not null
-        if (animator != null)
+
+        animator.SetFloat(speedParameter, isMoving ? Mathf.Abs(moveSpeed) : 0f);
+
+        if (!isMoving || currentHealth <= 0f) return;
+
+        // Move using the grid direction
+        Vector3 moveVec = new Vector3(direction.x, 0f, direction.y).normalized;
+        transform.Translate(moveVec * moveSpeed * Time.deltaTime, Space.World);
+
+        // Face movement direction smoothly
+        if (moveVec.sqrMagnitude > 0.0001f)
+            transform.forward = Vector3.Lerp(transform.forward, moveVec, 10f * Time.deltaTime);
+
+        // Check tile logic only when approximately centered on a tile
+        int curX = Mathf.RoundToInt(transform.position.x);
+        int curZ = Mathf.RoundToInt(transform.position.z);
+        Vector3 centerPos = new Vector3(curX, transform.position.y, curZ);
+
+        if (Vector3.Distance(transform.position, centerPos) > centerEpsilon)
+            return; // not yet centered
+
+        // Avoid re-processing same tile repeatedly
+        if (curX == _lastProcessedTileX && curZ == _lastProcessedTileZ)
+            return;
+
+        _lastProcessedTileX = curX;
+        _lastProcessedTileZ = curZ;
+
+        // Get current tile
+        GameObject tileGO = GameObject.Find($"Tile {curX} {curZ}");
+        if (tileGO == null)
         {
-            animator.SetFloat(speedParameter, isMoving ? Mathf.Abs(moveSpeed) : 0f);
+            StopMoving();
+            return;
         }
 
-        if (isMoving && currentHealth > 0f)
+        Tile currentTile = tileGO.GetComponent<Tile>();
+        if (currentTile == null || !currentTile.IsWalkable)
         {
-            // Move continuously along +X while alive.
-            transform.Translate(Vector3.right * moveSpeed * Time.deltaTime, Space.World);
+            StopMoving();
+            return;
+        }
 
-            // Detect tile we're currently on (assumes tiles named "Tile {x} {z}" at integer coordinates)
-            int curX = Mathf.RoundToInt(transform.position.x);
-            int curZ = Mathf.RoundToInt(transform.position.z);
-            string tileName = $"Tile {curX} {curZ}";
-            GameObject tileGO = GameObject.Find(tileName);
-
-            // If tile missing or not walkable -> stop moving and notify animator
-            if (tileGO == null)
+        // If current tile is a node, check forward first; only if forward blocked consider left/right
+        if (currentTile.IsNode)
+        {
+            bool aheadOk = CheckWalkableAt(curX + direction.x, curZ + direction.y);
+            if (aheadOk)
             {
-                isMoving = false;
-                if (animator != null) animator.SetFloat(speedParameter, 0f);
+                // continue straight
+                return;
+            }
+
+            Vector2Int left = new Vector2Int(-direction.y, direction.x);   // rotate left
+            Vector2Int right = new Vector2Int(direction.y, -direction.x); // rotate right
+
+            bool leftOk = CheckWalkableAt(curX + left.x, curZ + left.y);
+            bool rightOk = CheckWalkableAt(curX + right.x, curZ + right.y);
+
+            // Preference: left, then right
+            if (leftOk)
+            {
+                direction = left;
+                return;
+            }
+            else if (rightOk)
+            {
+                direction = right;
+                return;
             }
             else
             {
-                Tile tile = tileGO.GetComponent<Tile>();
-                if (tile == null || !tile.IsWalkable)
-                {
-                    isMoving = false;
-                    if (animator != null) animator.SetFloat(speedParameter, 0f);
-                }
+                // no adjacent walkable tiles -> stop
+                StopMoving();
+                return;
             }
         }
+        else
+        {
+            // Not a node: ensure forward tile is walkable; otherwise stop
+            bool aheadOk = CheckWalkableAt(curX + direction.x, curZ + direction.y);
+            if (!aheadOk)
+            {
+                StopMoving();
+                return;
+            }
+        }
+    }
+
+    private bool CheckWalkableAt(int x, int z)
+    {
+        GameObject tileGO = GameObject.Find($"Tile {x} {z}");
+        if (tileGO == null) return false;
+        Tile t = tileGO.GetComponent<Tile>();
+        return t != null && t.IsWalkable;
+    }
+
+    private void StopMoving()
+    {
+        isMoving = false;
+        if (animator != null) animator.SetFloat(speedParameter, 0f);
     }
 
     public void TakeDamage(float damage)

@@ -1352,12 +1352,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Monster
   maxHealth: 100
   direction: {x: 0, y: 1}
-  speed: 2
-  startMoving: 1
+  moveSpeed: 2
   startDelay: 0.15
-  waitForGrid: 1
-  maxGridWaitSeconds: 2
+  animator: {fileID: 0}
+  speedParameter: Speed
   snapToGridOnStart: 1
+  centerEpsilon: 0.05
 --- !u!114 &3349450803928666686
 MonoBehaviour:
   m_ObjectHideFlags: 0
