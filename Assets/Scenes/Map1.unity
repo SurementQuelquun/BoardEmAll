@@ -859,7 +859,7 @@ PrefabInstance:
       objectReference: {fileID: 1961434644}
     - target: {fileID: -6997355239125661125, guid: 1c5f9c0b40db2714cbe0f62029f78520, type: 3}
       propertyPath: moveSpeed
-      value: 3
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: -6997355239125661125, guid: 1c5f9c0b40db2714cbe0f62029f78520, type: 3}
       propertyPath: startDelay
