@@ -6,6 +6,7 @@ public class Tile : MonoBehaviour
     [SerializeField] public bool _isNode = true;
     [SerializeField] private bool _isWalkable = true;
     [SerializeField] private bool _isFinish = false;
+    [SerializeField] private bool _isStart = false;
 
     // Exposed read-only property used by placement logic.
     public bool IsConstructible => _isConstructible;
@@ -18,4 +19,7 @@ public class Tile : MonoBehaviour
 
     // Exposed read-only property used to mark the finish tile.
     public bool IsFinish => _isFinish;
+
+    // Exposed read-only property used to mark the start tile (spawner).
+    public bool IsStart => _isStart;
 }
