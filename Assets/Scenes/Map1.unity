@@ -204,7 +204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34c6ccab38fe98b4ebf48f714b481c37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GridManager
-  _map: {fileID: 2800000, guid: de1516b5bfdca1740a1e841cd00de5ab, type: 3}
+  _map: {fileID: 2800000, guid: 155f1317bb5c1eb43978cdfaeedd5f5a, type: 3}
   _width: 23
   _height: 17
   _nonConstructibleTilePrefab: {fileID: 2709388716795126830, guid: 689c8789fac061a418b4fcf7386d2cf0, type: 3}
@@ -349,6 +349,76 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &345439861
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 345439862}
+  - component: {fileID: 345439863}
+  - component: {fileID: 345439864}
+  m_Layer: 0
+  m_Name: Health UI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &345439862
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 345439861}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 979229243}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &345439863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 345439861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 712ebf63aa97d0c4fb869c6b0f403a65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerUI
+  HealthElementName: healthText
+  Prefix: 'Health:  '
+--- !u!114 &345439864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 345439861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.UIDocument
+  m_PanelSettings: {fileID: 11400000, guid: 5ff78de4ac3b2ed46b17fd6aa18c4abc, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: d56e70a88a6c8634ba7f6bb13700fd83, type: 3}
+  m_SortingOrder: 0
+  m_Position: 0
+  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceWidth: 1920
+  m_WorldSpaceHeight: 1080
+  m_PivotReferenceSize: 0
+  m_Pivot: 0
+  m_WorldSpaceCollider: {fileID: 0}
 --- !u!1 &386166460 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6164706210990065479, guid: 1c5f9c0b40db2714cbe0f62029f78520, type: 3}
@@ -461,8 +531,6 @@ GameObject:
   m_Component:
   - component: {fileID: 747764146}
   - component: {fileID: 747764147}
-  - component: {fileID: 747764148}
-  - component: {fileID: 747764149}
   m_Layer: 0
   m_Name: Game UI Doc
   m_TagString: Untagged
@@ -508,37 +576,6 @@ MonoBehaviour:
   m_PivotReferenceSize: 0
   m_Pivot: 0
   m_WorldSpaceCollider: {fileID: 0}
---- !u!114 &747764148
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 747764145}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1068bd31cb0473749b16fcd6626662d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UIManager
-  uiDocument: {fileID: 747764147}
-  towerBuilder: {fileID: 1609831918}
-  gameMenuTemplate: {fileID: 9197481963319205126, guid: 9600dcdd9a5a647459eee01606c50c73, type: 3}
-  attackTowersTemplate: {fileID: 9197481963319205126, guid: 760fef545e4c4fa4984afd6366d1d7de, type: 3}
-  supportTowersTemplate: {fileID: 9197481963319205126, guid: cc8dde816b3983441be8cad33a0074da, type: 3}
---- !u!114 &747764149
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 747764145}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 712ebf63aa97d0c4fb869c6b0f403a65, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerUI
-  HealthElementName: healthText
-  Prefix: 'Health:  '
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -651,8 +688,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 747764146}
+  - {fileID: 345439862}
   - {fileID: 1004083833}
+  - {fileID: 747764146}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1004083832
@@ -665,8 +703,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1004083833}
   - component: {fileID: 1004083834}
+  - component: {fileID: 1004083835}
   m_Layer: 0
-  m_Name: UI Gameplay
+  m_Name: UI Gameplay Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -699,7 +738,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 838cfaf9bf9a5a2498d6eb89ff13f92c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealthManager
-  startingHealth: 10
+  startingHealth: 1
+--- !u!114 &1004083835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1004083832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1068bd31cb0473749b16fcd6626662d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIManager
+  uiDocument: {fileID: 747764147}
+  towerBuilder: {fileID: 1609831918}
+  gameMenuTemplate: {fileID: 9197481963319205126, guid: 9600dcdd9a5a647459eee01606c50c73, type: 3}
+  attackTowersTemplate: {fileID: 9197481963319205126, guid: 760fef545e4c4fa4984afd6366d1d7de, type: 3}
+  supportTowersTemplate: {fileID: 9197481963319205126, guid: cc8dde816b3983441be8cad33a0074da, type: 3}
 --- !u!1 &1609831913
 GameObject:
   m_ObjectHideFlags: 0
@@ -917,6 +973,7 @@ MonoBehaviour:
   delayBetweenWaves: 2
   startOnAwake: 1
   loopWaves: 0
+  _initialSpawnDelay: 1
 --- !u!4 &1996030598
 Transform:
   m_ObjectHideFlags: 0

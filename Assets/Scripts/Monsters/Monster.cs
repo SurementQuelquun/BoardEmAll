@@ -11,7 +11,7 @@ public class Monster : MonoBehaviour
     [Header("Movement")]
     public Vector2Int direction = new Vector2Int(1, 0); // default +X
     public float moveSpeed = 2f;
-    public float startDelay = 2f;
+
 
     [Header("Animation")]
     public Animator animator;
@@ -42,7 +42,7 @@ public class Monster : MonoBehaviour
 
     IEnumerator StartMovingAfterDelay()
     {
-        yield return new WaitForSeconds(startDelay);
+
 
         if (snapToGridOnStart)
         {

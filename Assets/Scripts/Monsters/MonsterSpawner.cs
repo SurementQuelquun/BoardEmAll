@@ -17,12 +17,19 @@ public class MonsterSpawner : MonoBehaviour
     [Header("Timing")]
     public float spawnDelayBetweenMonsters = 0.2f;
     public float delayBetweenWaves = 2f;
+    [Tooltip("If true, spawning begins automatically on Start.")]
     public bool startOnAwake = true;
+    [Tooltip("If true, waves will loop when finished.")]
     public bool loopWaves = false;
+
+    [Header("Initial Delay")]
+    [Tooltip("Time in seconds to wait after the scene/game is loaded before the first wave starts.")]
+    [SerializeField] private float _initialSpawnDelay = 5f;
 
     private Coroutine _spawnRoutine;
     private List<Vector3> _spawnLocations = new List<Vector3>();
 
+    [System.Obsolete]
     void Start()
     {
         CollectSpawnLocations();
@@ -30,6 +37,7 @@ public class MonsterSpawner : MonoBehaviour
     }
 
     // Finds all Tiles flagged as Start and caches their world positions.
+    [System.Obsolete]
     private void CollectSpawnLocations()
     {
         _spawnLocations.Clear();
@@ -48,12 +56,6 @@ public class MonsterSpawner : MonoBehaviour
             }
         }
 
-        // If no start tiles found and a fallback spawnPoint exists, use it.
-        //if (_spawnLocations.Count == 0 && spawnPoint != null)
-        //{
-        //    _spawnLocations.Add(spawnPoint.position);
-        //}
-
         // If still empty, use this object's position as last fallback
         if (_spawnLocations.Count == 0)
         {
@@ -63,7 +65,8 @@ public class MonsterSpawner : MonoBehaviour
 
     public void StartSpawning()
     {
-        if (_spawnRoutine == null) _spawnRoutine = StartCoroutine(SpawnWaves());
+        if (_spawnRoutine == null)
+            _spawnRoutine = StartCoroutine(SpawnWavesWithInitialDelay());
     }
 
     public void StopSpawning()
@@ -73,6 +76,18 @@ public class MonsterSpawner : MonoBehaviour
             StopCoroutine(_spawnRoutine);
             _spawnRoutine = null;
         }
+    }
+
+    // Wrapper coroutine that waits the initial delay then runs the wave spawner.
+    private IEnumerator SpawnWavesWithInitialDelay()
+    {
+        if (_initialSpawnDelay > 0f)
+            yield return new WaitForSeconds(_initialSpawnDelay);
+
+        yield return StartCoroutine(SpawnWaves());
+
+        // Clear the routine handle when the spawning sequence finishes (if not looping).
+        _spawnRoutine = null;
     }
 
     private IEnumerator SpawnWaves()
