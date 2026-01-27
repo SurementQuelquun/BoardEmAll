@@ -1,52 +1,39 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class PlayerUI : MonoBehaviour
 {
-    public static PlayerUI Instance { get; private set; }
+    [SerializeField]
+    private string HealthElementName = "healthText";
 
-    [Header("Player HP")]
-    public int maxHealth = 10;
-    public int currentHealth;
+    [SerializeField]
+    private string Prefix = "Health: ";
 
-    [Header("UI")]
-    public Text healthText; // assign a UI Text (uGUI) in the inspector
+    private UIDocument uiDocument;
+    private Label healthText;
 
-    void Awake()
+    private void Awake()
     {
-        if (Instance == null) Instance = this;
-        else Destroy(gameObject);
+        uiDocument = GetComponent<UIDocument>();
+        var root = uiDocument.rootVisualElement;
+        healthText = root.Q<Label>(HealthElementName) ?? root.Q<Label>();
+        UpdateText(HealthManager.Health);
     }
 
-    void Start()
+    private void OnEnable()
     {
-        currentHealth = maxHealth;
-        UpdateUI();
+        HealthManager.OnHealthChanged += UpdateText;
     }
 
-    public void TakeDamage(int amount)
+    private void OnDisable()
     {
-        ChangeHealth(-amount);
+        HealthManager.OnHealthChanged -= UpdateText;
     }
 
-    public void ChangeHealth(int delta)
+    private void UpdateText(int newHealth)
     {
-        currentHealth = Mathf.Clamp(currentHealth + delta, 0, maxHealth);
-        UpdateUI();
-
-        if (currentHealth <= 0)
-            OnPlayerDead();
-    }
-
-    private void UpdateUI()
-    {
-        if (healthText != null)
-            healthText.text = $"HP: {currentHealth}/{maxHealth}";
-    }
-
-    private void OnPlayerDead()
-    {
-        // TODO: Game over handling (disable spawner, show game over UI, etc.)
-        Debug.Log("Player dead - implement game over flow.");
+        healthText.text = Prefix + newHealth.ToString();
     }
 }
