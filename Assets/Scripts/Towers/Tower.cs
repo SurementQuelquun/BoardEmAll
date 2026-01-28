@@ -123,43 +123,11 @@ public class Tower : MonoBehaviour
         s_GhostOwner = this;
         //Debug.Log("Ghost créé pour : " + s_GhostPrefab.name);
 
-        // --- RANGE VISUAL ---
-        TowerCombat combat = s_GhostObject.GetComponent<TowerCombat>();
-        if (combat != null)
-        {
-            combat.isPlaced = false; //ghost = jamais actif
-        }
 
-        if (combat == null)
-        {
-            Debug.LogWarning("TowerCombat non trouvé sur le ghost !");
-        }
-        else
-        {
-            Debug.Log("TowerCombat trouvé avec range = " + combat.range);
-        }
-
-        if (combat != null && rangeIndicatorPrefab != null)
-        {
-            s_RangeIndicator = Instantiate(rangeIndicatorPrefab);
-            s_RangeIndicator.transform.SetParent(s_GhostObject.transform);
-
-            float diameter = combat.range * 1f;
-            s_RangeIndicator.transform.localScale = new Vector3(diameter, 0.05f, diameter);
-            s_RangeIndicator.transform.localPosition = Vector3.zero;
-
-            Debug.Log("RangeIndicator créé et positionné : " + s_RangeIndicator.transform.position);
-
-            Renderer r = s_RangeIndicator.GetComponent<Renderer>();
-            if (r == null)
-            {
-                Debug.LogWarning("Renderer manquant sur RangeIndicator !");
-            }
-            else
-            {
-                Debug.Log("Material assigné : " + r.sharedMaterial.name + " | Alpha : " + r.sharedMaterial.color.a);
-            }
-        }
+        // Ensure a Placement component exists and mark as ghost (IsPlaced = false).
+        var placementComp = s_GhostObject.GetComponent<Placement>();
+        if (placementComp == null) placementComp = s_GhostObject.AddComponent<Placement>();
+        placementComp.IsPlaced = false;
 
         // Disable collider on ghost so we don't click it
         var col = s_GhostObject.GetComponent<Collider>();
