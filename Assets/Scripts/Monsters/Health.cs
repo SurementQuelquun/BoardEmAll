@@ -12,9 +12,6 @@ public class Health : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    /// <summary>
-    /// Appliquer des dégâts à cette entité
-    /// </summary>
     public void TakeDamage(float amount)
     {
         currentHealth -= amount;
@@ -25,19 +22,11 @@ public class Health : MonoBehaviour
             Die();
         }
     }
-
-    /// <summary>
-    /// Logique de destruction de l'entité
-    /// </summary>
     private void Die()
     {
         // Pour l’instant, on détruit simplement le GameObject
         Destroy(gameObject);
     }
-
-    /// <summary>
-    /// Optionnel : récupérer les PV restants
-    /// </summary>
     public float GetCurrentHealth()
     {
         return currentHealth;

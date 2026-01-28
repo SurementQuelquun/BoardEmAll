@@ -17,6 +17,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -508867294607255413, guid: 6c0094dc0b8b61f43a522ccc567b41b9, type: 3}
+      propertyPath: _isFinish
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -508867294607255413, guid: 6c0094dc0b8b61f43a522ccc567b41b9, type: 3}
       propertyPath: _isConstructible
       value: 0
       objectReference: {fileID: 0}

@@ -10,8 +10,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4839559161897820126, guid: 83ed22d837aa1294aaa96df801b2fb75, type: 3}
       propertyPath: m_Name
-      value: Tower
+      value: Kelpie
       objectReference: {fileID: 0}
+    - target: {fileID: 6070933045076208665, guid: 83ed22d837aa1294aaa96df801b2fb75, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 12b7093a3674ce44792b03b6e1eaf74c, type: 2}
     - target: {fileID: 7059052760878587662, guid: 83ed22d837aa1294aaa96df801b2fb75, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

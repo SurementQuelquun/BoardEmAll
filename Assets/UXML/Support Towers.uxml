@@ -7,7 +7,6 @@
             <ui:Button text="Kelpi&#10;" name="KelpiButton" />
             <ui:Button text="Sirens&#10;" name="SirenButton" />
             <ui:Button text="Scylla&#10;" name="ScyllaButton" />
-            <ui:Button text="Energy" name="EnergyTower" />
         </ui:VisualElement>
         <ui:Button text="Go Back&#10;" name="BackButton" style="height: 10%;" />
     </ui:VisualElement>

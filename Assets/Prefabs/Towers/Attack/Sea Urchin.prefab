@@ -1,5 +1,67 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &2687667302303727437
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6745785046494206573}
+    m_Modifications:
+    - target: {fileID: 1524411113276028, guid: e2aafa8770d34a9591b41bedf4e318ba, type: 3}
+      propertyPath: m_Name
+      value: TurtleShellPBR
+      objectReference: {fileID: 0}
+    - target: {fileID: 4544219117696442, guid: e2aafa8770d34a9591b41bedf4e318ba, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4544219117696442, guid: e2aafa8770d34a9591b41bedf4e318ba, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4544219117696442, guid: e2aafa8770d34a9591b41bedf4e318ba, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.069
+      objectReference: {fileID: 0}
+    - target: {fileID: 4544219117696442, guid: e2aafa8770d34a9591b41bedf4e318ba, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4544219117696442, guid: e2aafa8770d34a9591b41bedf4e318ba, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4544219117696442, guid: e2aafa8770d34a9591b41bedf4e318ba, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4544219117696442, guid: e2aafa8770d34a9591b41bedf4e318ba, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4544219117696442, guid: e2aafa8770d34a9591b41bedf4e318ba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4544219117696442, guid: e2aafa8770d34a9591b41bedf4e318ba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4544219117696442, guid: e2aafa8770d34a9591b41bedf4e318ba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e2aafa8770d34a9591b41bedf4e318ba, type: 3}
+--- !u!4 &2692211234596735735 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4544219117696442, guid: e2aafa8770d34a9591b41bedf4e318ba, type: 3}
+  m_PrefabInstance: {fileID: 2687667302303727437}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4353605177572672867
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15,6 +77,10 @@ PrefabInstance:
     - target: {fileID: 4839559161897820126, guid: 83ed22d837aa1294aaa96df801b2fb75, type: 3}
       propertyPath: m_Name
       value: Sea Urchin
+      objectReference: {fileID: 0}
+    - target: {fileID: 6070933045076208665, guid: 83ed22d837aa1294aaa96df801b2fb75, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6070933045076208665, guid: 83ed22d837aa1294aaa96df801b2fb75, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -63,12 +129,20 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 503103521614822730, guid: 83ed22d837aa1294aaa96df801b2fb75, type: 3}
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 7059052760878587662, guid: 83ed22d837aa1294aaa96df801b2fb75, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2692211234596735735}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4839559161897820126, guid: 83ed22d837aa1294aaa96df801b2fb75, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2073283653653861857}
   m_SourcePrefab: {fileID: 100100000, guid: 83ed22d837aa1294aaa96df801b2fb75, type: 3}
+--- !u!4 &6745785046494206573 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7059052760878587662, guid: 83ed22d837aa1294aaa96df801b2fb75, type: 3}
+  m_PrefabInstance: {fileID: 4353605177572672867}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &9170047634703735485 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4839559161897820126, guid: 83ed22d837aa1294aaa96df801b2fb75, type: 3}
@@ -86,11 +160,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0439a0780a8b5a4aafaf8d3e8deaab2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SeaUrchin
-  flyingFishPrefab: {fileID: 0}
-  krakenPrefab: {fileID: 0}
-  seaUrchinPrefab: {fileID: 9170047634703735485}
-  sharkPrefab: {fileID: 0}
-  gridsize: 1
   damage: 10
   range: 5
   fireRate: 1

@@ -166,8 +166,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RTSKeyboardCamera
   inputActions: {fileID: -944628639613478452, guid: 289c1b55c9541489481df5cc06664110, type: 3}
   panSpeed: 20
-  mapLimitX: {x: -15, y: 20}
-  mapLimitZ: {x: -15, y: 20}
+  mapLimitX: {x: -30, y: 30}
+  mapLimitZ: {x: -30, y: 30}
   rotationSpeed: 80
   minPitch: 20
   maxPitch: 80
@@ -349,6 +349,76 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &345439861
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 345439862}
+  - component: {fileID: 345439863}
+  - component: {fileID: 345439864}
+  m_Layer: 0
+  m_Name: Health UI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &345439862
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 345439861}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 979229243}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &345439863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 345439861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 712ebf63aa97d0c4fb869c6b0f403a65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerUI
+  HealthElementName: healthText
+  Prefix: 'Health:  '
+--- !u!114 &345439864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 345439861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.UIDocument
+  m_PanelSettings: {fileID: 11400000, guid: 5ff78de4ac3b2ed46b17fd6aa18c4abc, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: d56e70a88a6c8634ba7f6bb13700fd83, type: 3}
+  m_SortingOrder: 0
+  m_Position: 0
+  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceWidth: 1920
+  m_WorldSpaceHeight: 1080
+  m_PivotReferenceSize: 0
+  m_Pivot: 0
+  m_WorldSpaceCollider: {fileID: 0}
 --- !u!1 &386166460 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6164706210990065479, guid: 1c5f9c0b40db2714cbe0f62029f78520, type: 3}
@@ -461,7 +531,6 @@ GameObject:
   m_Component:
   - component: {fileID: 747764146}
   - component: {fileID: 747764147}
-  - component: {fileID: 747764148}
   m_Layer: 0
   m_Name: Game UI Doc
   m_TagString: Untagged
@@ -477,12 +546,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 747764145}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.49487, y: 0, z: 78.92396}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 979229243}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &747764147
 MonoBehaviour:
@@ -507,23 +576,6 @@ MonoBehaviour:
   m_PivotReferenceSize: 0
   m_Pivot: 0
   m_WorldSpaceCollider: {fileID: 0}
---- !u!114 &747764148
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 747764145}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1068bd31cb0473749b16fcd6626662d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UIManager
-  uiDocument: {fileID: 747764147}
-  towerBuilder: {fileID: 1609831918}
-  gameMenuTemplate: {fileID: 9197481963319205126, guid: 9600dcdd9a5a647459eee01606c50c73, type: 3}
-  attackTowersTemplate: {fileID: 9197481963319205126, guid: 760fef545e4c4fa4984afd6366d1d7de, type: 3}
-  supportTowersTemplate: {fileID: 9197481963319205126, guid: cc8dde816b3983441be8cad33a0074da, type: 3}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -607,6 +659,103 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3294444}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &979229242
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 979229243}
+  m_Layer: 0
+  m_Name: UI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &979229243
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 979229242}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 345439862}
+  - {fileID: 1004083833}
+  - {fileID: 747764146}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1004083832
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1004083833}
+  - component: {fileID: 1004083834}
+  - component: {fileID: 1004083835}
+  m_Layer: 0
+  m_Name: UI Gameplay Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1004083833
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1004083832}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 979229243}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1004083834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1004083832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 838cfaf9bf9a5a2498d6eb89ff13f92c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealthManager
+  startingHealth: 1
+--- !u!114 &1004083835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1004083832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1068bd31cb0473749b16fcd6626662d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIManager
+  uiDocument: {fileID: 747764147}
+  towerBuilder: {fileID: 1609831918}
+  gameMenuTemplate: {fileID: 9197481963319205126, guid: 9600dcdd9a5a647459eee01606c50c73, type: 3}
+  attackTowersTemplate: {fileID: 9197481963319205126, guid: 760fef545e4c4fa4984afd6366d1d7de, type: 3}
+  supportTowersTemplate: {fileID: 9197481963319205126, guid: cc8dde816b3983441be8cad33a0074da, type: 3}
 --- !u!1 &1609831913
 GameObject:
   m_ObjectHideFlags: 0
@@ -664,9 +813,9 @@ MonoBehaviour:
   krakenPrefab: {fileID: 4652352701994719324, guid: 86837d0226b1726438f35583470bae92, type: 3}
   seaUrchinPrefab: {fileID: 9170047634703735485, guid: 0509755fd91bef4478bf7be91f23f87b, type: 3}
   sharkPrefab: {fileID: 3096475915016169651, guid: cc5a84020c0be164e9a54b8d7c72bbd9, type: 3}
-  kelpiPrefab: {fileID: 0}
-  sirensPrefab: {fileID: 0}
-  cyllaPrefab: {fileID: 0}
+  kelpiPrefab: {fileID: 4618831666228688163, guid: 329ac44a4a04b404cb2e327f5bccf5e5, type: 3}
+  sirensPrefab: {fileID: 1378340259842040698, guid: 18e3d4fb7e23ffa40a613c65b150766c, type: 3}
+  cyllaPrefab: {fileID: 7700663848981362003, guid: d11c091244662dc45a619afad0b6e388, type: 3}
   energyPrefab: {fileID: 0}
   gridsize: 1
 --- !u!1 &1771198798 stripped
@@ -817,13 +966,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MonsterSpawner
   monsterPrefab: {fileID: 386166460}
-  spawnPoint: {fileID: 1996030598}
+  useStartTiles: 1
   waves: 06000000080000000a000000
   spawnSpacing: 0.4
   spawnDelayBetweenMonsters: 2
   delayBetweenWaves: 2
   startOnAwake: 1
   loopWaves: 0
+  _initialSpawnDelay: 1
 --- !u!4 &1996030598
 Transform:
   m_ObjectHideFlags: 0
@@ -833,7 +983,7 @@ Transform:
   m_GameObject: {fileID: 1996030596}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 1, y: 0, z: 11}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -911,7 +1061,7 @@ SceneRoots:
   - {fileID: 212489760}
   - {fileID: 1609831917}
   - {fileID: 1846580119}
-  - {fileID: 747764146}
   - {fileID: 3294444}
   - {fileID: 2121745634}
   - {fileID: 1996030598}
+  - {fileID: 979229243}

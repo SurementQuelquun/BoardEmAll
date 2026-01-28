@@ -10,8 +10,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4839559161897820126, guid: 83ed22d837aa1294aaa96df801b2fb75, type: 3}
       propertyPath: m_Name
-      value: Tower
+      value: Sirens
       objectReference: {fileID: 0}
+    - target: {fileID: 6070933045076208665, guid: 83ed22d837aa1294aaa96df801b2fb75, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 792a1930b99ffd742904d854e98c50b5, type: 2}
     - target: {fileID: 7059052760878587662, guid: 83ed22d837aa1294aaa96df801b2fb75, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

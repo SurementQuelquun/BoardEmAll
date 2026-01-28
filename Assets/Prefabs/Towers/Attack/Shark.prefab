@@ -1,5 +1,95 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &5059940300335233283
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 587647248407980131}
+    m_Modifications:
+    - target: {fileID: 627688225495717045, guid: 22b1319eabac8cc448983d7df76013e2, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 627688225495717045, guid: 22b1319eabac8cc448983d7df76013e2, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 627688225495717045, guid: 22b1319eabac8cc448983d7df76013e2, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6117994017555480044, guid: 22b1319eabac8cc448983d7df76013e2, type: 3}
+      propertyPath: m_Name
+      value: Shark_v5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6894073731827345238, guid: 22b1319eabac8cc448983d7df76013e2, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 148
+      objectReference: {fileID: 0}
+    - target: {fileID: 6894073731827345238, guid: 22b1319eabac8cc448983d7df76013e2, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 148
+      objectReference: {fileID: 0}
+    - target: {fileID: 6894073731827345238, guid: 22b1319eabac8cc448983d7df76013e2, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 148
+      objectReference: {fileID: 0}
+    - target: {fileID: 6894073731827345238, guid: 22b1319eabac8cc448983d7df76013e2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.33
+      objectReference: {fileID: 0}
+    - target: {fileID: 6894073731827345238, guid: 22b1319eabac8cc448983d7df76013e2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 6894073731827345238, guid: 22b1319eabac8cc448983d7df76013e2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6894073731827345238, guid: 22b1319eabac8cc448983d7df76013e2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6894073731827345238, guid: 22b1319eabac8cc448983d7df76013e2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6894073731827345238, guid: 22b1319eabac8cc448983d7df76013e2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6894073731827345238, guid: 22b1319eabac8cc448983d7df76013e2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6894073731827345238, guid: 22b1319eabac8cc448983d7df76013e2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6894073731827345238, guid: 22b1319eabac8cc448983d7df76013e2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6894073731827345238, guid: 22b1319eabac8cc448983d7df76013e2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6894073731827345238, guid: 22b1319eabac8cc448983d7df76013e2, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 22b1319eabac8cc448983d7df76013e2, type: 3}
+--- !u!4 &1843150291000729173 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6894073731827345238, guid: 22b1319eabac8cc448983d7df76013e2, type: 3}
+  m_PrefabInstance: {fileID: 5059940300335233283}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7625004402679445357
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15,6 +105,14 @@ PrefabInstance:
     - target: {fileID: 4839559161897820126, guid: 83ed22d837aa1294aaa96df801b2fb75, type: 3}
       propertyPath: m_Name
       value: Shark
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839559161897820126, guid: 83ed22d837aa1294aaa96df801b2fb75, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6070933045076208665, guid: 83ed22d837aa1294aaa96df801b2fb75, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6070933045076208665, guid: 83ed22d837aa1294aaa96df801b2fb75, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -63,12 +161,20 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 503103521614822730, guid: 83ed22d837aa1294aaa96df801b2fb75, type: 3}
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 7059052760878587662, guid: 83ed22d837aa1294aaa96df801b2fb75, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1843150291000729173}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4839559161897820126, guid: 83ed22d837aa1294aaa96df801b2fb75, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2760284819356207856}
   m_SourcePrefab: {fileID: 100100000, guid: 83ed22d837aa1294aaa96df801b2fb75, type: 3}
+--- !u!4 &587647248407980131 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7059052760878587662, guid: 83ed22d837aa1294aaa96df801b2fb75, type: 3}
+  m_PrefabInstance: {fileID: 7625004402679445357}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3096475915016169651 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4839559161897820126, guid: 83ed22d837aa1294aaa96df801b2fb75, type: 3}
@@ -86,11 +192,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4c3099c15eb0054abce902d2dfdaadf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Shark
-  flyingFishPrefab: {fileID: 0}
-  krakenPrefab: {fileID: 0}
-  seaUrchinPrefab: {fileID: 0}
-  sharkPrefab: {fileID: 3096475915016169651}
-  gridsize: 1
   damage: 10
   range: 5
   fireRate: 1
