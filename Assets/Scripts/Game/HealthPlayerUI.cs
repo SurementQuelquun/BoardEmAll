@@ -1,9 +1,7 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 using UnityEngine.UIElements;
 
-public class PlayerUI : MonoBehaviour
+public class HealthPlayerUI : MonoBehaviour
 {
     [SerializeField]
     private string HealthElementName = "healthText";
@@ -19,21 +17,22 @@ public class PlayerUI : MonoBehaviour
         uiDocument = GetComponent<UIDocument>();
         var root = uiDocument.rootVisualElement;
         healthText = root.Q<Label>(HealthElementName) ?? root.Q<Label>();
-        UpdateText(HealthManager.Health);
+        UpdateTextHealth(HealthManager.Health);
     }
 
     private void OnEnable()
     {
-        HealthManager.OnHealthChanged += UpdateText;
+        HealthManager.OnHealthChanged += UpdateTextHealth;
     }
 
     private void OnDisable()
     {
-        HealthManager.OnHealthChanged -= UpdateText;
+        HealthManager.OnHealthChanged -= UpdateTextHealth;
     }
 
-    private void UpdateText(int newHealth)
+    private void UpdateTextHealth(int newHealth)
     {
         healthText.text = Prefix + newHealth.ToString();
     }
+
 }

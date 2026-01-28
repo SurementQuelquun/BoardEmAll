@@ -90,9 +90,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Kraken
   damage: 20
-  range: 5
+  range: 3
   fireRate: 1
   projectilePrefab: {fileID: 7726805206132556096, guid: f3b30b77364da7147822d49f1a04d74a, type: 3}
+  isPlaced: 0
 --- !u!4 &7083916324035483788 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7059052760878587662, guid: 83ed22d837aa1294aaa96df801b2fb75, type: 3}

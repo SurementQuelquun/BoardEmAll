@@ -187,6 +187,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b4af121f84168d4bbdf5ccf850c5eae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MenuButtons
+  map_01: {fileID: 2800000, guid: 155f1317bb5c1eb43978cdfaeedd5f5a, type: 3}
+  map_02: {fileID: 2800000, guid: 5a4b736b37c60d44990570f31df3276d, type: 3}
+  map_03: {fileID: 2800000, guid: de1516b5bfdca1740a1e841cd00de5ab, type: 3}
 --- !u!1 &1383435130
 GameObject:
   m_ObjectHideFlags: 0

@@ -34,6 +34,7 @@ public class Tower : MonoBehaviour
 
     // Internal variable for the tower we are CURRENTLY building
     private GameObject currentObjectToPlace;
+    private int cost = 10;
 
     // Ghost Management
     private static GameObject s_GhostObject;
@@ -66,7 +67,11 @@ public class Tower : MonoBehaviour
         // 3. Place on Click
         if (WasLeftMousePressedThisFrame())
         {
-            PlaceObject();
+            if (cost <= CoinsManager.Coins)
+            {
+                PlaceObject();
+                CoinsManager.SpendCoins(cost);
+            }
         }
     }
 
@@ -75,10 +80,10 @@ public class Tower : MonoBehaviour
     {
         switch (towerID)
         {
-            case 0: currentObjectToPlace = flyingFishPrefab; break;
-            case 1: currentObjectToPlace = krakenPrefab; break;
-            case 2: currentObjectToPlace = seaUrchinPrefab; break;
-            case 3: currentObjectToPlace = sharkPrefab; break;
+            case 0: currentObjectToPlace = flyingFishPrefab; cost = 20; break;
+            case 1: currentObjectToPlace = krakenPrefab; cost = 40; break;
+            case 2: currentObjectToPlace = seaUrchinPrefab; cost = 10; break;
+            case 3: currentObjectToPlace = sharkPrefab; cost = 8; break;
 
             // Support towers
             case 4: currentObjectToPlace = kelpiPrefab; break;
@@ -124,7 +129,6 @@ public class Tower : MonoBehaviour
         if (placementComp == null) placementComp = s_GhostObject.AddComponent<Placement>();
         placementComp.IsPlaced = false;
 
-        //////////////////////////////////////////
         var tcOnPrefab = s_GhostPrefab != null ? s_GhostPrefab.GetComponent<TowerCombat>() : null;
         var tcOnInstance = s_GhostObject.GetComponent<TowerCombat>();
         float range = 0f;
@@ -137,11 +141,6 @@ public class Tower : MonoBehaviour
             // green semi-transparent circle, small width
             rv.Initialize(range, new Color(0f, 1f, 0f, 0.5f), 0.05f);
         }
-        //var col = s_GhostObject.GetComponent<Collider>();
-        //if (col != null) col.enabled = false;
-
-
-        //////////////////////////////////////////
         // Disable collider on ghost so we don't click it
         var col = s_GhostObject.GetComponent<Collider>();
         if (col != null) col.enabled = false;
@@ -168,19 +167,14 @@ public class Tower : MonoBehaviour
 
     void DestroyGhost()
     {
-        if (s_GhostObject != null)
-        {
-            Destroy(s_GhostObject);
-            s_GhostObject = null;
-            s_GhostPrefab = null;
-            s_GhostOwner = null;
-        }
 
-        if (s_RangeIndicator != null)
-        {
-            Destroy(s_RangeIndicator);
-            s_RangeIndicator = null;
-        }
+        Destroy(s_GhostObject);
+        s_GhostObject = null;
+        s_GhostPrefab = null;
+        s_GhostOwner = null;
+
+        Destroy(s_RangeIndicator);
+        s_RangeIndicator = null;
     }
 
 
@@ -226,7 +220,7 @@ void UpdateGhostPosition()
 
     void PlaceObject()
     {
-        if (s_GhostObject == null || s_GhostPrefab == null) return;
+        //if (s_GhostObject == null || s_GhostPrefab == null) return;
         if (Time.frameCount == s_LastPlacementFrame) return;
 
         Vector3 origin = s_GhostObject.transform.position + Vector3.up * 0.5f;
@@ -279,7 +273,7 @@ void UpdateGhostPosition()
             newTower.transform.parent = parentFolder;
 
             s_OccupiedPositions.Add(gridPos);
-            currentObjectToPlace = null; 
+            currentObjectToPlace = null;
             DestroyGhost();
         }
     }
@@ -318,19 +312,19 @@ void UpdateGhostPosition()
 
     private Vector2 GetMouseScreenPosition()
     {
-    #if ENABLE_INPUT_SYSTEM && !ENABLE_LEGACY_INPUT_MANAGER
+#if ENABLE_INPUT_SYSTEM && !ENABLE_LEGACY_INPUT_MANAGER
         return Mouse.current.position.ReadValue();
-    #else
+#else
         return Input.mousePosition;
-    #endif
+#endif
     }
 
     private bool WasLeftMousePressedThisFrame()
     {
-    #if ENABLE_INPUT_SYSTEM && !ENABLE_LEGACY_INPUT_MANAGER
+#if ENABLE_INPUT_SYSTEM && !ENABLE_LEGACY_INPUT_MANAGER
         return Mouse.current.leftButton.wasPressedThisFrame;
-    #else
+#else
         return Input.GetMouseButtonDown(0);
-    #endif
+#endif
     }
 }
