@@ -836,7 +836,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d2de2dd9af0665429a9c076a8c97691, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CoinsManager
-  startingCoins: 20
+  startingCoins: 50
 --- !u!1 &1609831913
 GameObject:
   m_ObjectHideFlags: 0
@@ -969,7 +969,7 @@ MonoBehaviour:
   - counts: 0800000004000000
     duration: 8
   spawnSpacing: 0.5
-  spawnDelayBetweenMonsters: 2
+  spawnDelayBetweenMonsters: 1
   delayBetweenWaves: 2
   loopWaves: 1
   _initialSpawnDelay: 10
