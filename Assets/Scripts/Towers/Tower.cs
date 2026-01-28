@@ -38,6 +38,7 @@ public class Tower : MonoBehaviour
     private static HashSet<Vector3Int> s_OccupiedPositions = new HashSet<Vector3Int>();
     private static int s_LastPlacementFrame = -1;
 
+    private float lastGhostY = 0f; // Hauteur stable pour le ghost
 
     private void Start()
     {
@@ -80,6 +81,11 @@ public class Tower : MonoBehaviour
             default: currentObjectToPlace = null; break;
         }
         DestroyGhost();
+
+        if (SFXManager.Instance != null)
+        {
+            SFXManager.Instance.PlaySFX(SFXManager.Instance.selectTowerClip);
+        }
     }
 
     // --- GHOST LOGIC ---
@@ -195,33 +201,46 @@ public class Tower : MonoBehaviour
         }
     }
 
-    void UpdateGhostPosition()
+
+void UpdateGhostPosition()
+{
+    if (s_GhostObject == null) return;
+
+    Vector2 mouseScreenPos = GetMouseScreenPosition();
+    Ray ray = Camera.main.ScreenPointToRay(new Vector3(mouseScreenPos.x, mouseScreenPos.y, 0f));
+
+    // On ne fait qu'un seul raycast pour récupérer le sol
+    if (Physics.Raycast(ray, out RaycastHit hit))
     {
-        if (s_GhostObject == null) return;
+        // Snap X/Z à la grille
+        Vector3Int gridPos = WorldToGridPosition(hit.point);
 
-        Vector2 mouseScreenPos = GetMouseScreenPosition();
-        Ray ray = Camera.main.ScreenPointToRay(new Vector3(mouseScreenPos.x, mouseScreenPos.y, 0f));
+        Vector3 newPosition;
+        newPosition.x = gridPos.x * gridsize;
+        newPosition.z = gridPos.z * gridsize;
 
-        if (Physics.Raycast(ray, out RaycastHit hit))
-        {
-            Vector3Int gridPos = WorldToGridPosition(hit.point);
+        // Hauteur fixe sur le sol (évite tout clignotement)
+        newPosition.y = 0f; // si ton sol est à Y=0
+        // OU si tes tiles ont une hauteur variable :
+        // newPosition.y = hit.collider.bounds.min.y;
 
-            Vector3 pos = (Vector3)gridPos * gridsize;
-            pos.y = 0f; // verrouille la hauteur
+        s_GhostObject.transform.position = newPosition;
 
-            s_GhostObject.transform.position = pos;
-
-            if (s_OccupiedPositions.Contains(gridPos))
-                SetGhostColor(Color.red);
-            else
-                SetGhostColor(new Color(1f, 1f, 1f, 0.5f));
-        }
-
-        if (s_RangeIndicator != null)
-        {
-            s_RangeIndicator.transform.position = s_GhostObject.transform.position;
-        }
+        // Couleur rouge si case occupée, sinon semi-transparente
+        if (s_OccupiedPositions.Contains(gridPos))
+            SetGhostColor(Color.red);
+        else
+            SetGhostColor(new Color(1f,1f,1f,0.5f));
     }
+
+    // Range indicator suit le ghost
+    if (s_RangeIndicator != null)
+        s_RangeIndicator.transform.position = s_GhostObject.transform.position;
+}
+
+
+
+
 
     void PlaceObject()
     {
@@ -262,6 +281,12 @@ public class Tower : MonoBehaviour
             if (combat != null)
             {
                 combat.isPlaced = true; //tour ACTIVE
+            }
+
+            // Jouer le son de placement
+            if (SFXManager.Instance != null)
+            {
+                SFXManager.Instance.PlaySFX(SFXManager.Instance.placeTowerClip);
             }
             // Name
             newTower.name = $"{s_GhostPrefab.name} [{gridPos.x}, {gridPos.z}]";

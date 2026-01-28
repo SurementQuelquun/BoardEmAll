@@ -31,6 +31,11 @@ public class SeaUrchin : TowerCombat
             Shockwave sw = wave.GetComponent<Shockwave>();
             if (sw != null)
                 sw.Init(range);
+            
+            if (SFXManager.Instance != null)
+            {
+                SFXManager.Instance.PlaySFX(SFXManager.Instance.seaUrchinAttackClip);
+            }
         }
     }
 }

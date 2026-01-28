@@ -54,7 +54,12 @@ public class TowerCombat : MonoBehaviour
 
         // Instantiate projectile
         GameObject projectileGO = Instantiate(projectilePrefab, transform.position + Vector3.up * 0.5f, Quaternion.identity);
-
+        
+        // Jouer le son du projectile
+        if (SFXManager.Instance != null)
+        {
+            SFXManager.Instance.PlaySFX(SFXManager.Instance.projectileShootClip);
+        }
         // Configure projectile
         Projectile proj = projectileGO.GetComponent<Projectile>();
         if (proj != null)
