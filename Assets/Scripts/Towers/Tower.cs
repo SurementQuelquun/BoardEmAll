@@ -111,6 +111,20 @@ public class Tower : MonoBehaviour
         if (placementComp == null) placementComp = s_GhostObject.AddComponent<Placement>();
         placementComp.IsPlaced = false;
 
+        // Add range visualizer to the ghost (reads range from TowerCombat if present)
+        var tcOnPrefab = s_GhostPrefab != null ? s_GhostPrefab.GetComponent<TowerCombat>() : null;
+        var tcOnInstance = s_GhostObject.GetComponent<TowerCombat>();
+        float range = 0f;
+        if (tcOnInstance != null) range = tcOnInstance.range;
+        else if (tcOnPrefab != null) range = tcOnPrefab.range;
+
+        if (range > 0f)
+        {
+            var rv = s_GhostObject.AddComponent<RangeVisualizer>();
+            // green semi-transparent circle, small width
+            rv.Initialize(range, new Color(0f, 1f, 0f, 0.5f), 0.05f);
+        }
+
         // Disable collider on ghost so we don't click it
         var col = s_GhostObject.GetComponent<Collider>();
         if (col != null) col.enabled = false;
