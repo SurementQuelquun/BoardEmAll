@@ -1,11 +1,12 @@
+using UnityEngine;
+
 public class Shark : TowerCombat
 {
-    void Start()
-    {
-        damage = 8f;
-        range = 5f;
-        fireRate = 1.5f;
-        cost = 8;
-    }
+    //[Header("Stats")]
+    //[SerializeField] private float defaultDamage = 8f;
+    //[SerializeField] private float defaultRange = 5f;
+    //[SerializeField] private float defaultFireRate = 1.5f;
+    //[SerializeField] private int defaultCost = 8;
+
 }
 

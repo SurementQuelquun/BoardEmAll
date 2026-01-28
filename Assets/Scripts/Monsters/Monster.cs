@@ -9,11 +9,12 @@ public class Monster : MonoBehaviour
     float _currentHealth;
 
     [Header("Coins on death")]
-    public static int loot = 20;
+    public int loot = 20;
 
     [Header("Movement")]
     public Vector2Int direction = new Vector2Int(1, 0); // default +X
     public float moveSpeed = 2f;
+    
 
     [Header("Damage")]
     [SerializeField] private int damageToPlayer = 1;

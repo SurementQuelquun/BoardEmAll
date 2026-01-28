@@ -9,6 +9,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -6997355239125661125, guid: 1c5f9c0b40db2714cbe0f62029f78520, type: 3}
+      propertyPath: loot
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: -6997355239125661125, guid: 1c5f9c0b40db2714cbe0f62029f78520, type: 3}
       propertyPath: maxHealth
       value: 500
       objectReference: {fileID: 0}

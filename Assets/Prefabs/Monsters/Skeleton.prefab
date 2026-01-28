@@ -1351,8 +1351,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Monster
   maxHealth: 100
+  loot: 5
   direction: {x: 1, y: 0}
   moveSpeed: 0.7
+  damageToPlayer: 1
   animator: {fileID: 2577629982845579472}
   speedParameter: Speed
   snapToGridOnStart: 1
