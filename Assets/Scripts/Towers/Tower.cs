@@ -18,6 +18,9 @@ public class Tower : MonoBehaviour
     public GameObject cyllaPrefab;  // ID: 6
     public GameObject energyPrefab; // ID: 7
 
+    [Header("Visuals")]
+    public GameObject rangeIndicatorPrefab;
+
     [Header("Settings")]
     public float gridsize = 1f;
 
@@ -29,9 +32,12 @@ public class Tower : MonoBehaviour
     private static GameObject s_GhostPrefab;
     private static Tower s_GhostOwner;
 
+    private static GameObject s_RangeIndicator;
+
     // Grid Tracking
     private static HashSet<Vector3Int> s_OccupiedPositions = new HashSet<Vector3Int>();
     private static int s_LastPlacementFrame = -1;
+
 
     private void Start()
     {
@@ -79,6 +85,16 @@ public class Tower : MonoBehaviour
     // --- GHOST LOGIC ---
     void CreateGhostObjectIfNeeded()
     {
+        if (rangeIndicatorPrefab == null)
+        {
+            Debug.LogWarning("rangeIndicatorPrefab non assigné dans l'inspecteur !");
+        }
+        else
+        {
+            Debug.Log("rangeIndicatorPrefab assigné : " + rangeIndicatorPrefab.name);
+        }
+
+        Debug.Log("CreateGhostObjectIfNeeded appelé"); // 🔹 log de début
         if (currentObjectToPlace == null)
         {
             // Only destroy if WE own it. This prevents conflicts.
@@ -97,6 +113,42 @@ public class Tower : MonoBehaviour
         s_GhostObject = Instantiate(currentObjectToPlace);
         s_GhostPrefab = currentObjectToPlace;
         s_GhostOwner = this;
+
+        Debug.Log("Ghost créé pour : " + s_GhostPrefab.name); // 🔹 log ghost créé
+
+        // --- RANGE VISUAL ---
+        TowerCombat combat = s_GhostObject.GetComponent<TowerCombat>();
+
+        if (combat == null)
+        {
+            Debug.LogWarning("TowerCombat non trouvé sur le ghost !");
+        }
+        else
+        {
+            Debug.Log("TowerCombat trouvé avec range = " + combat.range);
+        }
+
+        if (combat != null && rangeIndicatorPrefab != null)
+        {
+            s_RangeIndicator = Instantiate(rangeIndicatorPrefab);
+            s_RangeIndicator.transform.SetParent(s_GhostObject.transform);
+
+            float diameter = combat.range * 2f;
+            s_RangeIndicator.transform.localScale = new Vector3(diameter, 0.05f, diameter);
+            s_RangeIndicator.transform.localPosition = Vector3.zero;
+
+            Debug.Log("RangeIndicator créé et positionné : " + s_RangeIndicator.transform.position);
+
+            Renderer r = s_RangeIndicator.GetComponent<Renderer>();
+            if (r == null)
+            {
+                Debug.LogWarning("Renderer manquant sur RangeIndicator !");
+            }
+            else
+            {
+                Debug.Log("Material assigné : " + r.sharedMaterial.name + " | Alpha : " + r.sharedMaterial.color.a);
+            }
+        }
 
         // Disable collider on ghost so we don't click it
         var col = s_GhostObject.GetComponent<Collider>();
@@ -131,6 +183,12 @@ public class Tower : MonoBehaviour
             s_GhostPrefab = null;
             s_GhostOwner = null;
         }
+
+        if (s_RangeIndicator != null)
+        {
+            Destroy(s_RangeIndicator);
+            s_RangeIndicator = null;
+        }
     }
 
     void UpdateGhostPosition()
@@ -149,6 +207,11 @@ public class Tower : MonoBehaviour
                 SetGhostColor(Color.red);
             else
                 SetGhostColor(new Color(1f, 1f, 1f, 0.5f));
+        }
+
+        if (s_RangeIndicator != null)
+        {
+            s_RangeIndicator.transform.position = s_GhostObject.transform.position;
         }
     }
 
