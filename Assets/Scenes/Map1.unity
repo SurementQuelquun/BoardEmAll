@@ -1051,10 +1051,14 @@ MonoBehaviour:
   - {fileID: 6164706210990065479, guid: 1c5f9c0b40db2714cbe0f62029f78520, type: 3}
   - {fileID: 7361771075944354375, guid: 63cdfa9532c1ea94285abc27e4112112, type: 3}
   waves:
-  - counts: 0200000003000000
+  - counts: 0600000000000000
     duration: 5
-  - counts: 02000000
+  - counts: 0500000002000000
+    duration: 7
+  - counts: 0500000004000000
     duration: 10
+  - counts: 0800000004000000
+    duration: 8
   spawnSpacing: 0.5
   spawnDelayBetweenMonsters: 2
   delayBetweenWaves: 2
