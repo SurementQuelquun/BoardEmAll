@@ -638,9 +638,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 174279b534692124998b6135c3cf86b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlyingFish
-  damage: 15
-  range: 1.8
-  fireRate: 2
+  damage: 10
+  range: 2
+  fireRate: 4
   projectilePrefab: {fileID: 7726805206132556096, guid: f3b30b77364da7147822d49f1a04d74a, type: 3}
   isPlaced: 0
 --- !u!4 &8829159257504492087 stripped

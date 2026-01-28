@@ -72,6 +72,12 @@ public class Tower : MonoBehaviour
                 CoinsManager.SpendCoins(cost);
             }
         }
+
+        // 4. Delete placed tower under mouse when Delete is pressed
+        if (WasRightMousePressedThisFrame())
+        {
+            TryDeleteTowerUnderMouse();
+        }
     }
 
     // --- SELECTION FUNCTION ---
@@ -301,5 +307,40 @@ public class Tower : MonoBehaviour
 #else
         return Input.GetMouseButtonDown(0);
 #endif
+    }
+
+    private bool WasRightMousePressedThisFrame()
+    {
+#if ENABLE_INPUT_SYSTEM && !ENABLE_LEGACY_INPUT_MANAGER
+        // Uses the new Input System if enabled.
+        return Mouse.current.rightButton.wasPressedThisFrame;
+#else
+        return Input.GetKeyDown(KeyCode.Delete);
+#endif
+    }
+
+    private void TryDeleteTowerUnderMouse()
+    {
+        Vector2 mouseScreenPos = GetMouseScreenPosition();
+        Ray ray = Camera.main.ScreenPointToRay(new Vector3(mouseScreenPos.x, mouseScreenPos.y, 0f));
+
+        if (!Physics.Raycast(ray, out RaycastHit hit)) return;
+
+        // Look for a TowerCombat on the hit object or its parents
+        TowerCombat tc = hit.collider.GetComponentInParent<TowerCombat>();
+        if (tc == null) return;
+
+        // Only delete if the tower is placed/active
+        if (!tc.isPlaced) return;
+
+        // Free grid occupancy
+        Vector3Int gridPos = WorldToGridPosition(tc.transform.position);
+        s_OccupiedPositions.Remove(gridPos);
+
+        // Optionally prevent immediate re-placement in same frame
+        s_LastPlacementFrame = Time.frameCount;
+
+        // Destroy the tower GameObject
+        Destroy(tc.gameObject);
     }
 }

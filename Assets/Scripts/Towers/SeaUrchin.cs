@@ -2,14 +2,11 @@ using UnityEngine;
 
 public class SeaUrchin : TowerCombat
 {
-    void Start()
-    {
-        damage = 10f;
-        range = 5f;
-        fireRate = 1f;
-        cost = 10;
-    }
-
+    //[Header("Stats")]
+    //[SerializeField] private float defaultDamage = 10f;
+    //[SerializeField] private float defaultRange = 5f;
+    //[SerializeField] private float defaultFireRate = 1f;
+    //[SerializeField] private int defaultCost = 10;
     [System.Obsolete]
     protected override void Shoot(GameObject target)
     {

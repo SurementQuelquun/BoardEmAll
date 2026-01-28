@@ -3,10 +3,14 @@ using UnityEngine;
 public class TowerCombat : MonoBehaviour
 {
     [Header("Tower Stats")]
-    public float damage = 10f;
-    public float range = 5f;
-    public float fireRate = 1f;
-    public static int cost = 10;
+
+    [SerializeField] public float damage = 10f;
+    [SerializeField] public float range = 5f;
+    [SerializeField] public float fireRate = 1f;
+    [SerializeField] public static int cost = 10;
+    
+   
+    
     public GameObject projectilePrefab;
 
     public bool isPlaced = false;

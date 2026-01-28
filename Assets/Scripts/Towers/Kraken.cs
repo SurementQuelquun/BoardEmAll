@@ -1,11 +1,12 @@
+using UnityEngine;
+
 public class Kraken : TowerCombat
 {
-    void Start()
-    {
-        damage = 40f;
-        range = 3f;
-        fireRate = 0.5f;
-        cost = 40;
-    }
+
+    //[Header("Stats")]
+    //[SerializeField] private float defaultDamage = 40f;
+    //[SerializeField] private float defaultRange = 3f;
+    //[SerializeField] private float defaultFireRate = 0.5f;
+    //[SerializeField] private int defaultCost = 40;
 }
 

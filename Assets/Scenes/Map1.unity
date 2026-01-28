@@ -972,7 +972,7 @@ MonoBehaviour:
   spawnDelayBetweenMonsters: 2
   delayBetweenWaves: 2
   loopWaves: 1
-  _initialSpawnDelay: 1
+  _initialSpawnDelay: 10
 --- !u!4 &1996030598
 Transform:
   m_ObjectHideFlags: 0
