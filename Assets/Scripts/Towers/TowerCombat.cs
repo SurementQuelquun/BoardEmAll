@@ -15,7 +15,7 @@ public class TowerCombat : MonoBehaviour
     private void Update()
     {
         if (!isPlaced) return;
-        
+
         UpdateShooting();
     }
 

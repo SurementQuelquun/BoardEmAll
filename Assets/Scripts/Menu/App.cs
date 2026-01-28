@@ -30,9 +30,9 @@ public class App : MonoBehaviour
 
     private void OnDisable()
     {
-            _exitAction.performed -= OnExitPerformed;
-            _exitAction.Disable();
-            _exitAction = null;
+        _exitAction.performed -= OnExitPerformed;
+        _exitAction.Disable();
+        _exitAction = null;
     }
 
 

@@ -2,7 +2,11 @@
     <ui:VisualElement name="VisualElement" style="flex-grow: 1; justify-content: center;">
         <ui:VisualElement style="flex-grow: 0; align-self: center; justify-content: center; align-items: auto; flex-direction: column; align-content: auto; font-size: 14px;">
             <ui:Label text="Main Menu" name="MainMenuText" style="align-items: auto; align-self: center; font-size: 30px;" />
-            <ui:Button text="PLAY" name="PlayButton" style="align-self: center; align-items: auto;" />
+            <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
+                <ui:Button text="Level 1" name="PlayButton1" style="align-self: center; align-items: auto;" />
+                <ui:Button text="Level 2" name="PlayButton2" style="align-self: center; align-items: auto;" />
+                <ui:Button text="Level 3" name="PlayButton3" style="align-self: center; align-items: auto;" />
+            </ui:VisualElement>
             <ui:Button text="QUIT" name="QuitButton" style="align-items: auto; align-self: center;" />
         </ui:VisualElement>
     </ui:VisualElement>

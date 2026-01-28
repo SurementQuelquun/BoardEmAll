@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class Shark : TowerCombat
 {
     void Start()

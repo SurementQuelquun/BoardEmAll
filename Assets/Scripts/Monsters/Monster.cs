@@ -129,7 +129,7 @@ public class Monster : MonoBehaviour
             if (IsWalkable(f)) return;
             if (PickBestAdjacentTowardsFinish(cur, out var best)) { direction = best; return; }
             Stop();
-            return; 
+            return;
         }
     }
 
