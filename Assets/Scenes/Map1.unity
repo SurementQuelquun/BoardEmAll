@@ -812,7 +812,6 @@ MonoBehaviour:
   sirensPrefab: {fileID: 1378340259842040698, guid: 18e3d4fb7e23ffa40a613c65b150766c, type: 3}
   cyllaPrefab: {fileID: 7700663848981362003, guid: d11c091244662dc45a619afad0b6e388, type: 3}
   energyPrefab: {fileID: 0}
-  rangeIndicatorPrefab: {fileID: 2591093647622413982, guid: 56ba6b4e67954694094fdff2a69bf9f5, type: 3}
   gridsize: 1
 --- !u!1 &1771198798 stripped
 GameObject:
@@ -874,9 +873,11 @@ MonoBehaviour:
   - {fileID: 6164706210990065479, guid: 1c5f9c0b40db2714cbe0f62029f78520, type: 3}
   - {fileID: 7361771075944354375, guid: 63cdfa9532c1ea94285abc27e4112112, type: 3}
   waves:
-  - counts: 0200000003000000
+  - counts: 0600000000000000
     duration: 5
-  - counts: 02000000
+  - counts: 0500000002000000
+    duration: 8
+  - counts: 0600000004000000
     duration: 10
   spawnSpacing: 0.5
   spawnDelayBetweenMonsters: 2
@@ -916,7 +917,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7305667254798940858, guid: f86cccc350e7d7d44b861678b05ac100, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 11.09
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7305667254798940858, guid: f86cccc350e7d7d44b861678b05ac100, type: 3}
       propertyPath: m_LocalRotation.w
