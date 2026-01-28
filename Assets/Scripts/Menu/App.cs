@@ -8,6 +8,7 @@ public class App : MonoBehaviour
     public static App Instance { get; private set; }
 
     public InputActionAsset InputSystem_Actions;
+    private InputAction _exitAction;
 
     private void Awake()
     {
@@ -19,6 +20,21 @@ public class App : MonoBehaviour
 
         Instance = this;
     }
+
+    private void OnEnable()
+    {
+        _exitAction = InputSystem_Actions.FindAction("Exit", true);
+        _exitAction.performed += OnExitPerformed;
+        _exitAction.Enable();
+    }
+
+    private void OnDisable()
+    {
+            _exitAction.performed -= OnExitPerformed;
+            _exitAction.Disable();
+            _exitAction = null;
+    }
+
 
     IEnumerator Start()
     {
@@ -72,5 +88,10 @@ public class App : MonoBehaviour
                 gm.Generate();
             }
         }
+    }
+    private void OnExitPerformed(InputAction.CallbackContext ctx)
+    {
+        SceneManager.LoadScene("App");
+        SceneManager.LoadScene("OutGame", LoadSceneMode.Additive);
     }
 }

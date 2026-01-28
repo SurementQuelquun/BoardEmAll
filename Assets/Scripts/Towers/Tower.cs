@@ -95,14 +95,14 @@ public class Tower : MonoBehaviour
     {
         if (rangeIndicatorPrefab == null)
         {
-            Debug.LogWarning("rangeIndicatorPrefab non assigné dans l'inspecteur !");
+            //Debug.LogWarning("rangeIndicatorPrefab non assigné dans l'inspecteur !");
         }
         else
         {
-            Debug.Log("rangeIndicatorPrefab assigné : " + rangeIndicatorPrefab.name);
+            //Debug.Log("rangeIndicatorPrefab assigné : " + rangeIndicatorPrefab.name);
         }
 
-        Debug.Log("CreateGhostObjectIfNeeded appelé"); // log de début
+        //Debug.Log("CreateGhostObjectIfNeeded appelé"); // log de début
         if (currentObjectToPlace == null)
         {
             // Only destroy if WE own it. This prevents conflicts.
@@ -121,7 +121,7 @@ public class Tower : MonoBehaviour
         s_GhostObject = Instantiate(currentObjectToPlace);
         s_GhostPrefab = currentObjectToPlace;
         s_GhostOwner = this;
-        Debug.Log("Ghost créé pour : " + s_GhostPrefab.name);
+        //Debug.Log("Ghost créé pour : " + s_GhostPrefab.name);
 
         // --- RANGE VISUAL ---
         TowerCombat combat = s_GhostObject.GetComponent<TowerCombat>();

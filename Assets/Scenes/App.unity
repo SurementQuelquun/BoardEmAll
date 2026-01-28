@@ -279,7 +279,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7fb1598b1e29014698973fbc146bf34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::App
-  InputSystem_Actions: {fileID: 0}
+  InputSystem_Actions: {fileID: -944628639613478452, guid: 289c1b55c9541489481df5cc06664110, type: 3}
+  _menuSceneName: OutGame
 --- !u!4 &1836757525
 Transform:
   m_ObjectHideFlags: 0
@@ -316,8 +317,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameOver
   _mapSceneName: Map1
-  _menuSceneName: OutGame
-  _gameOverSceneName: GameOver
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
