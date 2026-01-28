@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class SeaUrchin : TowerCombat
 {
+    [System.Obsolete]
     protected override void Shoot(GameObject target)
     {
         Monster[] monsters = FindObjectsOfType<Monster>();

@@ -18,8 +18,6 @@ public class GlobalUIController : MonoBehaviour
     private void OnEnable()
     {
         if (uiDocument == null) uiDocument = GetComponent<UIDocument>();
-        if (towerBuilder == null) Debug.LogError("UIController: TOWER BUILDER IS NULL! Assign Game Area in Inspector.");
-
         LoadGameMenu();
     }
 
@@ -27,14 +25,13 @@ public class GlobalUIController : MonoBehaviour
 
     public void LoadGameMenu()
     {
-        // 1. Clone the template into the root
-        //Debug.Log("UI: Loading Game Menu");
+
         uiDocument.visualTreeAsset = gameMenuTemplate;
         root = uiDocument.rootVisualElement;
         Button attackBtn = root.Q<Button>("AttackButton");
         if (attackBtn != null) attackBtn.clicked += LoadAttackTowers;
 
-        // If you have a Support button
+
         Button supportBtn = root.Q<Button>("SupportButton");
         if (supportBtn != null) supportBtn.clicked += LoadSupportTowers;
     }
@@ -67,27 +64,19 @@ public class GlobalUIController : MonoBehaviour
 
         // Setup support tower buttons (IDs 4..7)
         SetupTowerButton("KelpiButton", 4);
-        SetupTowerButton("SirensButton", 5);
-        SetupTowerButton("CyllaButton", 6);
-        SetupTowerButton("EnergyButton", 7);
+        SetupTowerButton("SirenButton", 5);
+        SetupTowerButton("ScyllaButton", 6);
 
-        //Debug.Log("Switched to Support Towers Menu");
     }
     // Helper to keep code clean and add logging
     private void SetupTowerButton(string buttonName, int id)
     {
         Button btn = root.Q<Button>(buttonName);
-        if (btn != null)
+        btn.clicked += () =>
         {
-            btn.clicked += () =>
-            {
-                //Debug.Log($"UI: {buttonName} clicked! Sending ID {id} to Tower.cs");
-                towerBuilder.SelectTowerByID(id);
-            };
-        }
-        else
-        {
-            Debug.LogWarning($"UI: Could not find button named '{buttonName}' in the current UXML.");
-        }
+
+            towerBuilder.SelectTowerByID(id);
+        };
+
     }
 }

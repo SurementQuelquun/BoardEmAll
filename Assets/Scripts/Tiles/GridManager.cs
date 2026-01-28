@@ -27,13 +27,13 @@ public class Node
         this.z_pos = z;
         this.nodeType = type;
     }
-    private bool Equals(Node toCompare)
-    {
-        if (this.x_pos != toCompare.x_pos) return false;
-        if (this.z_pos != toCompare.z_pos) return false;
-        if (!this.nodeType.Equals(toCompare.nodeType)) return false;
-        return true;
-    }
+    //private bool Equals(Node toCompare)
+    //{
+    //    if (this.x_pos != toCompare.x_pos) return false;
+    //    if (this.z_pos != toCompare.z_pos) return false;
+    //    if (!this.nodeType.Equals(toCompare.nodeType)) return false;
+    //    return true;
+    //}
 }
 
 public class GridManager : MonoBehaviour
@@ -139,7 +139,7 @@ public class GridManager : MonoBehaviour
         _height = mapImage.height;
         _width = mapImage.width;
 
-        Debug.Log($"Texture width={mapImage.width}, height={mapImage.height}, format={mapImage.format}");
+        //Debug.Log($"Texture width={mapImage.width}, height={mapImage.height}, format={mapImage.format}");
 
         int i = 0;
         for(int z = 0; z < _height; z++)
@@ -148,7 +148,7 @@ public class GridManager : MonoBehaviour
             {
                 Color32 _currentTileColor = _colors[i];
                 (Tile _currentTile, string _currentTypeOfTile) = GetTileFromColor(_currentTileColor);
-                print(_currentTypeOfTile);
+                //print(_currentTypeOfTile);
                 // add node to graph keys
                 if (_currentTile._isNode)
                 {

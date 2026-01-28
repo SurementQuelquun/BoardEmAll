@@ -33,14 +33,13 @@ public class App : MonoBehaviour
     private IEnumerator LoadSceneAdditiveIfNeeded(string sceneName)
     {
         var existing = SceneManager.GetSceneByName(sceneName);
+
         if (!existing.IsValid())
         {
             var loadOp = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
 
-            Debug.LogError($"Failed to start loading scene '{sceneName}'.");
+            //Debug.LogError($"Failed to start loading scene '{sceneName}'.");
             yield break;
-            
-
         }
     }
 

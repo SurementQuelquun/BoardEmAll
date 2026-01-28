@@ -1351,10 +1351,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Monster
   maxHealth: 100
-  direction: {x: 0, y: 1}
-  moveSpeed: 2
-  startDelay: 0.15
-  animator: {fileID: 0}
+  direction: {x: 1, y: 0}
+  moveSpeed: 0.7
+  animator: {fileID: 2577629982845579472}
   speedParameter: Speed
   snapToGridOnStart: 1
   centerEpsilon: 0.05
@@ -1370,7 +1369,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b78a580a5e70d4a4887a15f21ec7412e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
-  maxHealth: 100
 --- !u!1 &6457487201637453656
 GameObject:
   m_ObjectHideFlags: 0

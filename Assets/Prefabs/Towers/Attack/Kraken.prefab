@@ -89,7 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85ed321211003ab43ac21d9c88f1086a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Kraken
-  damage: 10
+  damage: 20
   range: 5
   fireRate: 1
   projectilePrefab: {fileID: 7726805206132556096, guid: f3b30b77364da7147822d49f1a04d74a, type: 3}
