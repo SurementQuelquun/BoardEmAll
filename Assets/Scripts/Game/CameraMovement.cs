@@ -12,7 +12,7 @@
 //    public InputActionAsset InputSystem_Actions;
 
 //    [SerializeField]
-//    private float CameraRotationSpeed = 100f;
+//    private float CameraRotationSpeed = 100f; 
 
 //    private void Start()
 //    {
@@ -259,7 +259,7 @@ public class RTSKeyboardCamera : MonoBehaviour
         // We read the Vector2.y from the scroll wheel
         float scrollDelta = zoomAction.ReadValue<Vector2>().y;
 
-        // IMPORTANT: Scroll values are usually ±120. We normalize this.
+        // IMPORTANT: Scroll values are usually ï¿½120. We normalize this.
         if (Mathf.Abs(scrollDelta) > 0.1f)
         {
             // Normalize: 120 becomes ~1

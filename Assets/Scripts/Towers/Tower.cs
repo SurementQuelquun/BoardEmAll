@@ -114,10 +114,14 @@ public class Tower : MonoBehaviour
         s_GhostPrefab = currentObjectToPlace;
         s_GhostOwner = this;
 
-        Debug.Log("Ghost créé pour : " + s_GhostPrefab.name); // 🔹 log ghost créé
+        Debug.Log("Ghost créé pour : " + s_GhostPrefab.name);
 
         // --- RANGE VISUAL ---
         TowerCombat combat = s_GhostObject.GetComponent<TowerCombat>();
+        if (combat != null)
+        {
+            combat.isPlaced = false; //ghost = jamais actif
+        }
 
         if (combat == null)
         {
@@ -250,6 +254,11 @@ public class Tower : MonoBehaviour
             // Instantiate
             GameObject newTower = Instantiate(s_GhostPrefab, s_GhostObject.transform.position, Quaternion.identity);
 
+            TowerCombat combat = newTower.GetComponent<TowerCombat>();
+            if (combat != null)
+            {
+                combat.isPlaced = true; //tour ACTIVE
+            }
             // Name
             newTower.name = $"{s_GhostPrefab.name} [{gridPos.x}, {gridPos.z}]";
 
