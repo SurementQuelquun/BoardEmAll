@@ -2,23 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class Wave
+{
+    // counts[i] = how many enemies of monsterPrefabs[i] to spawn in this wave
+    public List<int> counts = new List<int>();
+
+    [Tooltip("Optional: duration in seconds for this wave. If > 0 the spawner will progress to the next wave after this time regardless of remaining monsters. If <= 0 the spawner will wait until all spawned monsters are destroyed (legacy behavior).")]
+    public float duration = 10f;
+}
+
 public class MonsterSpawner : MonoBehaviour
 {
-    [Header("Prefab & Spawn")]
-    public GameObject monsterPrefab;
-    //public Transform spawnPoint; // optional fallback when no start tiles found
-    [Tooltip("If true, automatically create spawn locations from Tiles marked as Start.")]
-    public bool useStartTiles = true;
+    [Header("Prefabs")]
+    [Tooltip("Preferred: list of different monster prefabs. Counts per wave are defined in Waves.")]
+    public List<GameObject> monsterPrefabs = new List<GameObject>();
+
+    [Header("Spawn")]
+    private bool useStartTiles = true;
 
     [Header("Waves")]
-    public List<int> waves = new List<int> { 6, 8, 10 };
+    [Tooltip("Configure waves. Each Wave.counts must have an entry per prefab in monsterPrefabs (or fewer — missing entries treated as 0).")]
+    public List<Wave> waves = new List<Wave>();
+
     public float spawnSpacing = 0.4f;
 
     [Header("Timing")]
     public float spawnDelayBetweenMonsters = 0.2f;
     public float delayBetweenWaves = 2f;
-    [Tooltip("If true, spawning begins automatically on Start.")]
-    public bool startOnAwake = true;
     [Tooltip("If true, waves will loop when finished.")]
     public bool loopWaves = false;
 
@@ -29,37 +40,25 @@ public class MonsterSpawner : MonoBehaviour
     private Coroutine _spawnRoutine;
     private List<Vector3> _spawnLocations = new List<Vector3>();
 
-    [System.Obsolete]
-    void Start()
+    private void Start()
     {
         CollectSpawnLocations();
-        if (startOnAwake) StartSpawning();
+        StartSpawning();
     }
 
     // Finds all Tiles flagged as Start and caches their world positions.
-    [System.Obsolete]
     private void CollectSpawnLocations()
     {
         _spawnLocations.Clear();
-
-        if (useStartTiles)
+        var tiles = FindObjectsOfType<Tile>();
+        foreach (var t in tiles)
         {
-            var tiles = FindObjectsOfType<Tile>();
-            foreach (var t in tiles)
+            if (t != null && t.IsStart)
             {
-                if (t != null && t.IsStart)
-                {
-                    var p = t.transform.position;
-                    // snap to integer tile center just in case
-                    _spawnLocations.Add(new Vector3(Mathf.Round(p.x), p.y, Mathf.Round(p.z)));
-                }
+                var p = t.transform.position;
+                // snap to integer tile center just in case
+                _spawnLocations.Add(new Vector3(Mathf.Round(p.x), p.y, Mathf.Round(p.z)));
             }
-        }
-
-        // If still empty, use this object's position as last fallback
-        if (_spawnLocations.Count == 0)
-        {
-            _spawnLocations.Add(transform.position);
         }
     }
 
@@ -98,52 +97,65 @@ public class MonsterSpawner : MonoBehaviour
         do
         {
             if (waveIndex >= waves.Count) break;
-            int count = waves[waveIndex];
+            Wave currentWave = waves[waveIndex];
 
-            List<GameObject> spawned = new List<GameObject>(count);
+            List<GameObject> spawned = new List<GameObject>();
 
-            for (int i = 0; i < count; i++)
+            // spawn each prefab the requested number of times
+            int spawnCounter = 0;
+            for (int prefabIndex = 0; prefabIndex < monsterPrefabs.Count; prefabIndex++)
             {
-                // cycle through spawn locations so each start tile acts as a spawner
-                Vector3 basePos = _spawnLocations[i % spawnLocationsCount];
+                int countForPrefab = 0;
+                if (currentWave.counts != null && prefabIndex < currentWave.counts.Count)
+                    countForPrefab = Mathf.Max(0, currentWave.counts[prefabIndex]);
 
-                // small random spread to avoid overlapping exactly
-                Vector3 offset = new Vector3(
-                    Random.Range(-spawnSpacing, spawnSpacing),
-                    0f,
-                    Random.Range(-spawnSpacing, spawnSpacing)
-                );
-                Vector3 spawnPos = basePos + offset;
-
-                GameObject go = Instantiate(monsterPrefab, spawnPos, Quaternion.identity, GetMonstersParent());
-                spawned.Add(go);
-
-                if (spawnDelayBetweenMonsters > 0f)
-                    yield return new WaitForSeconds(spawnDelayBetweenMonsters);
-                else
-                    yield return null;
-            }
-
-            // Wait until all spawned monsters are destroyed
-            while (true)
-            {
-                for (int i = spawned.Count - 1; i >= 0; i--)
+                for (int c = 0; c < countForPrefab; c++)
                 {
-                    if (spawned[i] == null) spawned.RemoveAt(i);
-                }
+                    Vector3 basePos = _spawnLocations[spawnCounter % spawnLocationsCount];
 
-                if (spawned.Count == 0) break;
-                yield return new WaitForSeconds(0.25f);
+                    // small random spread to avoid overlapping exactly
+                    Vector3 offset = new Vector3(
+                        Random.Range(-spawnSpacing, spawnSpacing),
+                        0f,
+                        Random.Range(-spawnSpacing, spawnSpacing)
+                    );
+                    Vector3 spawnPos = basePos + offset;
+
+                    GameObject prefab = monsterPrefabs[prefabIndex];
+                    GameObject go = Instantiate(prefab, spawnPos, Quaternion.identity, GetMonstersParent());
+                    spawned.Add(go);
+
+                    spawnCounter++;
+
+                    if (spawnDelayBetweenMonsters > 0f)
+                        yield return new WaitForSeconds(spawnDelayBetweenMonsters);
+                    else
+                        yield return null;
+                }
             }
 
-            yield return new WaitForSeconds(delayBetweenWaves);
+            // NEW: If the wave defines a positive duration, wait that amount of time
+            // and then progress to the next wave regardless of whether spawned monsters are still alive.
+            //if (currentWave.duration > 0f)
+            //{
+            float timer = 0f;
+            while (timer < currentWave.duration)
+            {
+                timer += Time.deltaTime;
+                yield return null;
+            }
+            //}
+
+            // Optional gap between waves
+            if (delayBetweenWaves > 0f)
+                yield return new WaitForSeconds(delayBetweenWaves);
 
             waveIndex++;
-            if (waveIndex >= waves.Count && loopWaves)
+            if (waveIndex >= waves.Count && loopWaves && waves.Count > 0)
             {
                 waveIndex = 0;
             }
-        } while (loopWaves || (_spawnRoutine != null && waveIndex < waves.Count));
+        } while (loopWaves || (_spawnRoutine != null && (waveIndex < waves.Count)));
 
         _spawnRoutine = null;
     }

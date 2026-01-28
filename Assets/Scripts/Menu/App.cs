@@ -40,8 +40,6 @@ public class App : MonoBehaviour
 
             //Debug.LogError($"Failed to start loading scene '{sceneName}'.");
             yield break;
-
-
         }
     }
 

@@ -3,7 +3,7 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     [Header("Health Settings")]
-    public float maxHealth = 100f;
+    private float maxHealth = 100f;
     private float currentHealth;
 
     private void Awake()

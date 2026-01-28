@@ -12,6 +12,9 @@ public class Monster : MonoBehaviour
     public Vector2Int direction = new Vector2Int(1, 0); // default +X
     public float moveSpeed = 2f;
 
+    [Header("Damage")]
+    [SerializeField] private int damageToPlayer = 1;
+
 
     [Header("Animation")]
     public Animator animator;
@@ -104,7 +107,7 @@ public class Monster : MonoBehaviour
         // finish reached
         if (tile.IsFinish)
         {
-            HealthManager.RemovePoints(1);
+            HealthManager.RemovePoints(damageToPlayer);
             Destroy(gameObject);
             return;
         }

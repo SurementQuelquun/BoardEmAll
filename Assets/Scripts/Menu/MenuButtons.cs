@@ -60,11 +60,6 @@ public class MenuButtons : MonoBehaviour
         if (!string.IsNullOrEmpty(sceneToUnload))
         {
             var unloadOp = SceneManager.UnloadSceneAsync(sceneToUnload);
-            if (unloadOp != null)
-            {
-                while (!unloadOp.isDone)
-                    yield return null;
-            }
         }
     }
 }
