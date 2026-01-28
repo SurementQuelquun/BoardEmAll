@@ -93,16 +93,6 @@ public class Tower : MonoBehaviour
     // --- GHOST LOGIC ---
     void CreateGhostObjectIfNeeded()
     {
-        if (rangeIndicatorPrefab == null)
-        {
-            //Debug.LogWarning("rangeIndicatorPrefab non assigné dans l'inspecteur !");
-        }
-        else
-        {
-            //Debug.Log("rangeIndicatorPrefab assigné : " + rangeIndicatorPrefab.name);
-        }
-
-        //Debug.Log("CreateGhostObjectIfNeeded appelé"); // log de début
         if (currentObjectToPlace == null)
         {
             // Only destroy if WE own it. This prevents conflicts.
@@ -121,7 +111,6 @@ public class Tower : MonoBehaviour
         s_GhostObject = Instantiate(currentObjectToPlace);
         s_GhostPrefab = currentObjectToPlace;
         s_GhostOwner = this;
-        //Debug.Log("Ghost créé pour : " + s_GhostPrefab.name);
 
 
         // Ensure a Placement component exists and mark as ghost (IsPlaced = false).
@@ -129,6 +118,24 @@ public class Tower : MonoBehaviour
         if (placementComp == null) placementComp = s_GhostObject.AddComponent<Placement>();
         placementComp.IsPlaced = false;
 
+        //////////////////////////////////////////
+        var tcOnPrefab = s_GhostPrefab != null ? s_GhostPrefab.GetComponent<TowerCombat>() : null;
+        var tcOnInstance = s_GhostObject.GetComponent<TowerCombat>();
+        float range = 0f;
+        if (tcOnInstance != null) range = tcOnInstance.range;
+        else if (tcOnPrefab != null) range = tcOnPrefab.range;
+
+        if (range > 0f)
+        {
+            var rv = s_GhostObject.AddComponent<RangeVisualizer>();
+            // green semi-transparent circle, small width
+            rv.Initialize(range, new Color(0f, 1f, 0f, 0.5f), 0.05f);
+        }
+        //var col = s_GhostObject.GetComponent<Collider>();
+        //if (col != null) col.enabled = false;
+
+
+        //////////////////////////////////////////
         // Disable collider on ghost so we don't click it
         var col = s_GhostObject.GetComponent<Collider>();
         if (col != null) col.enabled = false;
