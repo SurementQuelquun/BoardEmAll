@@ -8,10 +8,14 @@ public class TowerCombat : MonoBehaviour
     public float fireRate = 1f;
     public GameObject projectilePrefab;
 
+    public bool isPlaced = false;
+
     private float fireCountdown = 0f;
 
     private void Update()
     {
+        if (!isPlaced) return;
+        
         UpdateShooting();
     }
 
