@@ -2,6 +2,14 @@ using UnityEngine;
 
 public class SeaUrchin : TowerCombat
 {
+    void Start()
+    {
+        damage = 10f;
+        range = 5f;
+        fireRate = 1f;
+        cost = 10;
+    }
+
     [System.Obsolete]
     protected override void Shoot(GameObject target)
     {

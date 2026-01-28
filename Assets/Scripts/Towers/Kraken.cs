@@ -5,6 +5,7 @@ public class Kraken : TowerCombat
         damage = 40f;
         range = 3f;
         fireRate = 0.5f;
+        cost = 40;
     }
 }
 

@@ -19,6 +19,7 @@ public class Health : MonoBehaviour
         // Vérifier si l'entité est morte
         if (currentHealth <= 0f)
         {
+            CoinsManager.GainCoins(Monster.loot);
             Die();
         }
     }

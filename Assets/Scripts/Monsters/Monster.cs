@@ -8,6 +8,9 @@ public class Monster : MonoBehaviour
     public float maxHealth = 100f;
     float _currentHealth;
 
+    [Header("Coins on death")]
+    public static int loot = 20;
+
     [Header("Movement")]
     public Vector2Int direction = new Vector2Int(1, 0); // default +X
     public float moveSpeed = 2f;
@@ -108,6 +111,7 @@ public class Monster : MonoBehaviour
         if (tile.IsFinish)
         {
             HealthManager.RemovePoints(damageToPlayer);
+
             Destroy(gameObject);
             return;
         }
@@ -258,11 +262,15 @@ public class Monster : MonoBehaviour
     public void TakeDamage(float damage)
     {
         _currentHealth -= damage;
-        if (_currentHealth <= 0f) Die();
+        if (_currentHealth <= 0f) 
+        {
+            Die();
+        }
     }
 
     void Die()
     {
+        CoinsManager.GainCoins(loot);
         Stop();
         Destroy(gameObject);
     }

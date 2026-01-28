@@ -5,6 +5,7 @@ public class Shark : TowerCombat
         damage = 8f;
         range = 5f;
         fireRate = 1.5f;
+        cost = 8;
     }
 }
 

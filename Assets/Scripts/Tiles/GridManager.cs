@@ -48,7 +48,9 @@ public class GridManager : MonoBehaviour
     public Dictionary<Node, List<Node>> pathGraph;
 
     private Transform _gridParent;
-    [SerializeField] private bool _autoGenerate = false;
+    [SerializeField] private bool _autoGenerate = true;
+    public List<Vector2> _startPoints = new List<Vector2>();
+
 
     void Start()
     {
@@ -183,6 +185,7 @@ public class GridManager : MonoBehaviour
                 if (_currentTypeOfTile.Equals("start"))
                 {
                     _startTileEntry.Positions.Add(_pos);
+                    _startPoints.Add(_pos);
                 }
                 if (_currentTypeOfTile.Equals("end"))
                 {

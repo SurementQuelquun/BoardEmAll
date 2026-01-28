@@ -1,0 +1,5 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement style="flex-grow: 1; width: 3px; height: 3px; align-items: flex-end; align-self: flex-end;">
+        <ui:Label text="Coins: " name="coinsText" double-click-selects-word="false" triple-click-selects-line="false" parse-escape-sequences="false" style="align-items: flex-end; justify-content: space-between; align-self: flex-end; height: 30px; width: 127px; -unity-text-align: upper-left; background-color: rgb(226, 189, 97); white-space: pre-wrap;" />
+    </ui:VisualElement>
+</ui:UXML>
