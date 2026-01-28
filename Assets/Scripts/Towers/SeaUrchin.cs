@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class SeaUrchin : TowerCombat
 {
+    public GameObject shockwavePrefab;
+    
     [System.Obsolete]
     protected override void Shoot(GameObject target)
     {
@@ -16,6 +18,19 @@ public class SeaUrchin : TowerCombat
             {
                 m.TakeDamage(damage);
             }
+        }
+
+        if (shockwavePrefab != null)
+        {
+            GameObject wave = Instantiate(
+                shockwavePrefab,
+                transform.position + Vector3.up * 0.1f,
+                Quaternion.identity
+            );
+
+            Shockwave sw = wave.GetComponent<Shockwave>();
+            if (sw != null)
+                sw.Init(range);
         }
     }
 }
