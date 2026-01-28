@@ -23,6 +23,7 @@ public class Tower : MonoBehaviour
 
     // Internal variable for the tower we are CURRENTLY building
     private GameObject currentObjectToPlace;
+    private int cost = 10;
 
     // Ghost Management
     private static GameObject s_GhostObject;
@@ -51,7 +52,11 @@ public class Tower : MonoBehaviour
         // 3. Place on Click
         if (WasLeftMousePressedThisFrame())
         {
-            PlaceObject();
+            if (cost <= CoinsManager.Coins)
+            {
+                PlaceObject();
+                CoinsManager.SpendCoins(cost);
+            }
         }
     }
 
@@ -60,10 +65,10 @@ public class Tower : MonoBehaviour
     {
         switch (towerID)
         {
-            case 0: currentObjectToPlace = flyingFishPrefab; break;
-            case 1: currentObjectToPlace = krakenPrefab; break;
-            case 2: currentObjectToPlace = seaUrchinPrefab; break;
-            case 3: currentObjectToPlace = sharkPrefab; break;
+            case 0: currentObjectToPlace = flyingFishPrefab; cost = 20; break;
+            case 1: currentObjectToPlace = krakenPrefab; cost = 40; break;
+            case 2: currentObjectToPlace = seaUrchinPrefab; cost = 10; break;
+            case 3: currentObjectToPlace = sharkPrefab; cost = 8; break;
 
             // Support towers
             case 4: currentObjectToPlace = kelpiPrefab; break;

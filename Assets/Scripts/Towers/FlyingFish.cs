@@ -7,6 +7,7 @@ public class FlyingFish : TowerCombat
         damage = 15f;
         range = 2f;
         fireRate = 4f;
+        cost = 20;
     }
 }
 

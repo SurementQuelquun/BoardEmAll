@@ -6,6 +6,7 @@ public class TowerCombat : MonoBehaviour
     public float damage = 10f;
     public float range = 5f;
     public float fireRate = 1f;
+    public static int cost = 10;
     public GameObject projectilePrefab;
 
     private float fireCountdown = 0f;
