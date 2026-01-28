@@ -94,7 +94,7 @@ public class Tower : MonoBehaviour
             Debug.Log("rangeIndicatorPrefab assigné : " + rangeIndicatorPrefab.name);
         }
 
-        Debug.Log("CreateGhostObjectIfNeeded appelé"); // 🔹 log de début
+        Debug.Log("CreateGhostObjectIfNeeded appelé"); // log de début
         if (currentObjectToPlace == null)
         {
             // Only destroy if WE own it. This prevents conflicts.
@@ -137,7 +137,7 @@ public class Tower : MonoBehaviour
             s_RangeIndicator = Instantiate(rangeIndicatorPrefab);
             s_RangeIndicator.transform.SetParent(s_GhostObject.transform);
 
-            float diameter = combat.range * 2f;
+            float diameter = combat.range * 1f;
             s_RangeIndicator.transform.localScale = new Vector3(diameter, 0.05f, diameter);
             s_RangeIndicator.transform.localPosition = Vector3.zero;
 
