@@ -205,7 +205,11 @@ public class Tower : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
             Vector3Int gridPos = WorldToGridPosition(hit.point);
-            s_GhostObject.transform.position = (Vector3)gridPos * gridsize;
+
+            Vector3 pos = (Vector3)gridPos * gridsize;
+            pos.y = 0f; // verrouille la hauteur
+
+            s_GhostObject.transform.position = pos;
 
             if (s_OccupiedPositions.Contains(gridPos))
                 SetGhostColor(Color.red);
