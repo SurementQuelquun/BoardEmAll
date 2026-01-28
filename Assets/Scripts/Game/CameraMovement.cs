@@ -77,7 +77,6 @@ public class RTSKeyboardCamera : MonoBehaviour
         Vector2 input = moveAction.ReadValue<Vector2>();
 
         // Calculate Forward/Right relative to the camera's current Yaw
-        // This ensures "W" always moves "Up" on the screen, regardless of rotation
         Quaternion yawRotation = Quaternion.Euler(0, currentYaw, 0);
 
         Vector3 moveDir = yawRotation * new Vector3(input.x, 0, input.y);
@@ -92,17 +91,12 @@ public class RTSKeyboardCamera : MonoBehaviour
     private void HandleKeyboardRotation()
     {
         // 2. Rotate around the Pivot using Q/E/Z/X
-        // You said "Look" is mapped to a Vector2 (Up/Down/Left/Right)
         Vector2 rotationInput = lookAction.ReadValue<Vector2>();
-
-        // rotationInput.x comes from Q (Left) and E (Right)
-        // rotationInput.y comes from Z (Up) and X (Down)
 
         // Rotate Horizontal (Yaw)
         currentYaw += rotationInput.x * rotationSpeed * Time.deltaTime;
 
         // Rotate Vertical (Pitch)
-        // We add input.y because Z is usually "positive" in Input System
         currentPitch += rotationInput.y * rotationSpeed * Time.deltaTime;
 
         // Clamp the Pitch (The Demi-Sphere limits)
