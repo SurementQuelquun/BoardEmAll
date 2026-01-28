@@ -164,3 +164,5 @@ MonoBehaviour:
   range: 5
   fireRate: 1
   projectilePrefab: {fileID: 7726805206132556096, guid: f3b30b77364da7147822d49f1a04d74a, type: 3}
+  isPlaced: 0
+  shockwavePrefab: {fileID: 5953394522378348601, guid: 78c78f6f74904b34fb44e4aaf3dc4a0b, type: 3}
