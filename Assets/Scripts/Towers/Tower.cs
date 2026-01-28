@@ -4,6 +4,14 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 #endif
 
+// Small helper component attached to tower instances so other systems can
+// know whether the tower is a placed/active tower or still a ghost.
+public class Placement : MonoBehaviour
+{
+    // When false (ghost) shooting/attacking systems should not run.
+    public bool IsPlaced = false;
+}
+
 public class Tower : MonoBehaviour
 {
     [Header("Tower Prefabs")]
@@ -98,6 +106,11 @@ public class Tower : MonoBehaviour
         s_GhostPrefab = currentObjectToPlace;
         s_GhostOwner = this;
 
+        // Ensure a Placement component exists and mark as ghost (IsPlaced = false).
+        var placementComp = s_GhostObject.GetComponent<Placement>();
+        if (placementComp == null) placementComp = s_GhostObject.AddComponent<Placement>();
+        placementComp.IsPlaced = false;
+
         // Disable collider on ghost so we don't click it
         var col = s_GhostObject.GetComponent<Collider>();
         if (col != null) col.enabled = false;
@@ -184,8 +197,13 @@ public class Tower : MonoBehaviour
         {
             s_LastPlacementFrame = Time.frameCount;
 
-            // Instantiate
+            // Instantiate the real tower
             GameObject newTower = Instantiate(s_GhostPrefab, s_GhostObject.transform.position, Quaternion.identity);
+
+            // Ensure a Placement component exists and mark it placed so other systems can allow shooting
+            var placementComp = newTower.GetComponent<Placement>();
+            if (placementComp == null) placementComp = newTower.AddComponent<Placement>();
+            placementComp.IsPlaced = true;
 
             // Name
             newTower.name = $"{s_GhostPrefab.name} [{gridPos.x}, {gridPos.z}]";

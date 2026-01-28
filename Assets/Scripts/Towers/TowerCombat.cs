@@ -17,6 +17,11 @@ public class TowerCombat : MonoBehaviour
 
     void UpdateShooting()
     {
+        // If a Placement component exists and the tower is still a ghost, do not attempt to shoot.
+        var placement = GetComponent<Placement>();
+        if (placement != null && !placement.IsPlaced)
+            return;
+
         if (fireCountdown > 0f)
         {
             fireCountdown -= Time.deltaTime;
