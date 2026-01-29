@@ -47,8 +47,6 @@ public class Tower : MonoBehaviour
     private static HashSet<Vector3Int> s_OccupiedPositions = new HashSet<Vector3Int>();
     private static int s_LastPlacementFrame = -1;
 
-    private float lastGhostY = 0f; // Hauteur stable pour le ghost
-
     private void Start()
     {
         currentObjectToPlace = null;
@@ -219,11 +217,6 @@ void UpdateGhostPosition()
     if (s_RangeIndicator != null)
         s_RangeIndicator.transform.position = s_GhostObject.transform.position;
 }
-
-
-
-
-
     void PlaceObject()
     {
         //if (s_GhostObject == null || s_GhostPrefab == null) return;
