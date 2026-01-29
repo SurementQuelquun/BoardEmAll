@@ -33,10 +33,6 @@ public class SeaUrchin : TowerCombat
             if (sw != null)
                 sw.Init(range);
             
-            if (SFXManager.Instance != null)
-            {
-                SFXManager.Instance.PlaySFX(SFXManager.Instance.seaUrchinAttackClip);
-            }
         }
     }
 }

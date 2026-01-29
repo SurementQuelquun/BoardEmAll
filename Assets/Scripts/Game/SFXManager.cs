@@ -4,36 +4,25 @@ public class SFXManager : MonoBehaviour
 {
     public static SFXManager Instance;
 
-    [Header("Assign AudioClips here")]
-    public AudioClip selectTowerClip;
-    public AudioClip placeTowerClip;
-    public AudioClip projectileShootClip;
-    public AudioClip seaUrchinAttackClip;
-
-    private AudioSource audioSource;
+    [Header("UI")]
+    public AudioSource uiClickSource;
 
     private void Awake()
     {
-        // Singleton simple
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
+            return;
         }
 
-        audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.playOnAwake = false;
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
-    // Fonction pour jouer un son
-    public void PlaySFX(AudioClip clip, float volume = 1f)
+    public void PlayUIClick()
     {
-        if (clip == null) return;
-        audioSource.PlayOneShot(clip, volume);
+        if (!uiClickSource.isPlaying)
+            uiClickSource.Play();
     }
 }
 
