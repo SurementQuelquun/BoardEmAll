@@ -82,10 +82,6 @@ public class Tower : MonoBehaviour
         }
         DestroyGhost();
 
-        if (SFXManager.Instance != null)
-        {
-            SFXManager.Instance.PlaySFX(SFXManager.Instance.selectTowerClip);
-        }
     }
 
     // --- GHOST LOGIC ---
@@ -202,43 +198,42 @@ public class Tower : MonoBehaviour
     }
 
 
-void UpdateGhostPosition()
-{
-    if (s_GhostObject == null) return;
-
-    Vector2 mouseScreenPos = GetMouseScreenPosition();
-    Ray ray = Camera.main.ScreenPointToRay(new Vector3(mouseScreenPos.x, mouseScreenPos.y, 0f));
-
-    // On ne fait qu'un seul raycast pour récupérer le sol
-    if (Physics.Raycast(ray, out RaycastHit hit))
+    void UpdateGhostPosition()
     {
-        // Snap X/Z à la grille
-        Vector3Int gridPos = WorldToGridPosition(hit.point);
+        if (s_GhostObject == null) return;
 
-        Vector3 newPosition;
-        newPosition.x = gridPos.x * gridsize;
-        newPosition.z = gridPos.z * gridsize;
+        Vector2 mouseScreenPos = GetMouseScreenPosition();
+        Ray ray = Camera.main.ScreenPointToRay(new Vector3(mouseScreenPos.x, mouseScreenPos.y, 0f));
 
-        // Hauteur fixe sur le sol (évite tout clignotement)
-        newPosition.y = 0f; // si ton sol est à Y=0
-        // OU si tes tiles ont une hauteur variable :
-        // newPosition.y = hit.collider.bounds.min.y;
+        // On ne fait qu'un seul raycast pour récupérer le sol
+        if (Physics.Raycast(ray, out RaycastHit hit))
+        {
+            // Snap X/Z à la grille
+            Vector3Int gridPos = WorldToGridPosition(hit.point);
 
-        s_GhostObject.transform.position = newPosition;
+            Vector3 newPosition;
+            newPosition.x = gridPos.x * gridsize;
+            newPosition.z = gridPos.z * gridsize;
 
-        // Couleur rouge si case occupée, sinon semi-transparente
-        if (s_OccupiedPositions.Contains(gridPos))
-            SetGhostColor(Color.red);
-        else
-            SetGhostColor(new Color(1f,1f,1f,0.5f));
+            // Hauteur fixe sur le sol (évite tout clignotement)
+            newPosition.y = 0f; // si ton sol est à Y=0
+            // OU si tes tiles ont une hauteur variable :
+            // newPosition.y = hit.collider.bounds.min.y;
+
+            s_GhostObject.transform.position = newPosition;
+
+            // Couleur rouge si case occupée, sinon semi-transparente
+            if (s_OccupiedPositions.Contains(gridPos))
+                SetGhostColor(Color.red);
+            else
+                SetGhostColor(new Color(1f,1f,1f,0.5f));
+        }
+
+        // Range indicator suit le ghost
+        if (s_RangeIndicator != null)
+            s_RangeIndicator.transform.position = s_GhostObject.transform.position;
+
     }
-
-    // Range indicator suit le ghost
-    if (s_RangeIndicator != null)
-        s_RangeIndicator.transform.position = s_GhostObject.transform.position;
-}
-
-
 
 
 
@@ -283,11 +278,7 @@ void UpdateGhostPosition()
                 combat.isPlaced = true; //tour ACTIVE
             }
 
-            // Jouer le son de placement
-            if (SFXManager.Instance != null)
-            {
-                SFXManager.Instance.PlaySFX(SFXManager.Instance.placeTowerClip);
-            }
+
             // Name
             newTower.name = $"{s_GhostPrefab.name} [{gridPos.x}, {gridPos.z}]";
 
@@ -317,7 +308,7 @@ void UpdateGhostPosition()
         return subFolder;
     }
 
-    private Vector3Int WorldToGridPosition(Vector3 worldPosition)
+    Vector3Int WorldToGridPosition(Vector3 worldPosition)
     {
         return new Vector3Int(
             Mathf.RoundToInt(worldPosition.x / gridsize),
@@ -333,7 +324,7 @@ void UpdateGhostPosition()
         foreach (Renderer renderer in renderers) renderer.material.color = color;
     }
 
-    private Vector2 GetMouseScreenPosition()
+    Vector2 GetMouseScreenPosition()
     {
     #if ENABLE_INPUT_SYSTEM && !ENABLE_LEGACY_INPUT_MANAGER
         return Mouse.current.position.ReadValue();
@@ -342,7 +333,7 @@ void UpdateGhostPosition()
     #endif
     }
 
-    private bool WasLeftMousePressedThisFrame()
+    bool WasLeftMousePressedThisFrame()
     {
     #if ENABLE_INPUT_SYSTEM && !ENABLE_LEGACY_INPUT_MANAGER
         return Mouse.current.leftButton.wasPressedThisFrame;
