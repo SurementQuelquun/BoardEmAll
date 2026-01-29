@@ -129,6 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3294444}
   - component: {fileID: 3294445}
+  - component: {fileID: 3294446}
   m_Layer: 0
   m_Name: Pivot Camera
   m_TagString: Untagged
@@ -175,6 +176,14 @@ MonoBehaviour:
   maxZoom: 20
   zoomSpeed: 2
   zoomSmoothing: 5
+--- !u!81 &3294446
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3294443}
+  m_Enabled: 1
 --- !u!1 &212489758
 GameObject:
   m_ObjectHideFlags: 0

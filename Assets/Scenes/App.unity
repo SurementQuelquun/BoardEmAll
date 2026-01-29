@@ -280,7 +280,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::App
   InputSystem_Actions: {fileID: -944628639613478452, guid: 289c1b55c9541489481df5cc06664110, type: 3}
-  _menuSceneName: OutGame
 --- !u!4 &1836757525
 Transform:
   m_ObjectHideFlags: 0
@@ -303,7 +302,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1836757523}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!114 &1836757527
 MonoBehaviour:
   m_ObjectHideFlags: 0
